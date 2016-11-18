@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Register.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ConstantData/Constant_Data_Manager.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Login.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/UserType/GameUser.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Message/Message_Action.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/Chat_Handler.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Record.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/HelpCommands/Command_Help.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_List.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Games/Scramble_Game.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/IRCBot_UserManager.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Invalid.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Database/Database_Connection.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/UserType/UserCredentials.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/Game_Handler.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Games/Hangman_Game.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Message/Message_Chat.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/HelpCommands/Command_Help_Join.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_List_Builder.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/UserType/AdminUser.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/PM_Handler.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/IRCBotMain.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Message/Message_PM.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Parsing/StringSeperator.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Games/Jeopardy_Game.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Games/ChatGame.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/IRCBot.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/UserType/NormalUser.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/HelpCommands/Command_Help_Register.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Message/Message.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/Event_Handler_Builder.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/Event_Handler.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Parsing/Parser.java</file>
+        </group>
+    </open-files>
+</project-private>
