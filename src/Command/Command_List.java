@@ -1,7 +1,5 @@
 package Command;
 
-import ircbot.IRCBot;
-
 import java.util.HashMap;
 
 public class Command_List {
@@ -26,7 +24,6 @@ public class Command_List {
     
     public Command getCommand(String s) {
         if(canBeCommand(s)) {
-            IRCBot Bot = IRCBot.getInstance();
             Command bestMatch = null;
             int matchCount = 0;
             for (HashMap.Entry<String, Command> elem : commands.entrySet()) {

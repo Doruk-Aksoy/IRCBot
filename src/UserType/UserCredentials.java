@@ -1,23 +1,28 @@
 package UserType;
 
 public class UserCredentials {
-    private String name;
-    private String login;
+    private String IRCname;
+    private String username; // this is the database login
+    private String login; // this is the IRC login!
     private String hostname;
-    private int ID;
     
     public UserCredentials() {
-        name = ""; login = ""; hostname = "";
+        IRCname = ""; username = ""; login = ""; hostname = "";
     }
     
-    public UserCredentials(String name, String login, String hostname) {
-        this.name = name;
+    public UserCredentials(String name, String username, String login, String hostname) {
+        this.IRCname = name;
+        this.username = username;
         this.login = login;
         this.hostname = hostname;
     }
     
-    public String getName() {
-        return name;
+    public String getIRCName() {
+        return IRCname;
+    }
+    
+    public String getUserName() {
+        return username;
     }
     
     public String getLogin() {
@@ -28,12 +33,12 @@ public class UserCredentials {
         return hostname;
     }
     
-    public int getID() {
-        return ID;
+    public void setIRCName(String name) {
+        this.IRCname = name;
     }
     
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String username) {
+        this.username = username;
     }
     
     public void setLogin(String login) {
@@ -42,10 +47,5 @@ public class UserCredentials {
     
     public void setHostname(String hostname) {
         this.hostname = hostname;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-    
+    } 
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 import ConstantData.Constant_Data_Manager;
+import ConstantData.Feature_CD;
 import Database.*;
 import Message.Message;
 import Parsing.*;
@@ -11,11 +12,12 @@ import UserType.*;
 import ircbot.IRCBot;
 import ircbot.IRCBot_UserManager;
 
-public class Command_Login implements Command {
+
+public class Command_Stats implements Command {
     private String[] text; // has a string array associated with parsing to avoid splitting twice
     
     private boolean verifyFormat(String[] s) {
-        if(s != null && s.length == 3)
+        if(s != null && s.length == 2)
             return true;
         return false;
     }
@@ -30,37 +32,32 @@ public class Command_Login implements Command {
         return Command_Validity.CMD_VALID;
     }
     
+    // checks user score
     @Override public void operate(Message msg) {
         IRCBot Bot = IRCBot.getInstance();
+        Parser p = new StringSeperator();
+        String[] text = p.parse(msg.getText());
         String sender = msg.getSender();
         Database_Connection DB = Database_Connection.getInstance();
-        Bot.sendMessage(msg, Constant_Data_Manager.login_begin_message);
+        Bot.sendMessage(msg, Constant_Data_Manager.stat_begin_message);
         try {
             Query_Handler QH = new Query_Handler();
             DB.connect();
-            // 1 is the first parameter
-            if(!QH.userExists(DB.getConnection(), text[1]))
-                Bot.sendMessage(msg, Constant_Data_Manager.login_nouser);
+            // 1 is the first parameter which can refer to a user name on the channel or database
+            // checking channel is easier so we will start with that
+            // if the user in the channel has actually logged in, search our list
+            IRCBot_UserManager UM = Bot.getUserManager();
+            GameUser u = UM.getUser(sender, text[1]);
+            String search_name = sender;
+            // now this means that the user actually entered a login that's different than the IRC name
+            // and also logged in previously in current bot session
+            if(u != null)
+                search_name = u.getUserName();
+            // now query from the db
+            if(!QH.getUserScores(DB.getConnection(), search_name))
+                Bot.sendMessage(msg, Constant_Data_Manager.stat_nouser);
             else {
-                // get the md5 hash of password
-                Parser hasher = new MD5Hasher();
-                String pass = hasher.parse(text[2])[0];
-                if(QH.checkPassword(DB.getConnection(), text[1], pass)) {
-                    IRCBot_UserManager UM = Bot.getUserManager();
-                    // did this user log in already
-                    if(UM.getUser(text[1]) != null)
-                        Bot.sendMessage(msg, Constant_Data_Manager.login_already);
-                    else {
-                        ResultSet rs = QH.getMostRecentResult();
-                        // we know this has to be a unique result
-                        UserCredentials uc = new UserCredentials(sender, text[1], msg.getLogin(), msg.getHostname());
-                        GameUser user = new NormalUser(uc, rs.getInt("ID"), 0);
-                        UM.addUser(user);
-                        Bot.sendMessage(msg, Constant_Data_Manager.login_success);
-                    }
-                }
-                else
-                    Bot.sendMessage(msg, Constant_Data_Manager.login_invalid_password);
+                Bot.getFeature(Feature_CD.stat_evaluation).execute(msg, QH.getMostRecentResult());
             }
         }
         catch (SQLException e) {

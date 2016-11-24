@@ -6,7 +6,11 @@ import Message.Message;
 import ircbot.IRCBot;
 
 public class Command_Help implements Command {
-    public Command_Help() { }
+    @Override public Command_Validity validate(Message msg) {
+        if(msg.getText().equals(Constant_Data_Manager.help_command))
+            return Command_Validity.CMD_VALID;
+        return Command_Validity.CMD_BADFORMAT;
+    }
     
     @Override public void operate(Message msg) {
         IRCBot Bot = IRCBot.getInstance();

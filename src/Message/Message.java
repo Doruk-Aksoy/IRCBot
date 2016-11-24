@@ -8,7 +8,9 @@ public abstract class Message {
         MSG_CHAT,
         MSG_PM,
         MSG_ACTION,
-        MSG_GAME
+        MSG_GAME,
+        MSG_NICKCHANGE,
+        MSG_QUIT
     }
     
     protected Message_Type type;
@@ -32,4 +34,6 @@ public abstract class Message {
     public abstract String getSender();
     public abstract String getChannel();
     public abstract String getText();
+    public abstract String getLogin();
+    public abstract String getHostname();
 }

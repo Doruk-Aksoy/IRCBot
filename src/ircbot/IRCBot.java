@@ -8,19 +8,21 @@ import java.util.HashMap;
 import Handlers.Event_Handler;
 import Handlers.Event_Handler_Builder;
 import Message.*;
+import ircbot.Features.*;
 
 public class IRCBot extends PircBot {
-    
     // members
     private static IRCBot instance = null;
     private ArrayList<String> channels;
     private IRCBot_UserManager user_manager;
     // messages get mapped to events depending on type
     private HashMap<Message.Message_Type, Event_Handler> event_handlers;
+    private IRCBot_FeatureList features;
     
     private IRCBot() {
         this.channels = new ArrayList<>();
         this.user_manager = new IRCBot_UserManager();
+        this.features = new IRCBot_FeatureList();
         Event_Handler_Builder EB = new Event_Handler_Builder();
         this.event_handlers = EB.build();
     }
@@ -69,6 +71,10 @@ public class IRCBot extends PircBot {
         }
     }
     
+    public IRCBot_Feature getFeature(String s) {
+       return features.getFeature(s);
+    }
+    
     // because message formats are different, we have to have an overloaded version here
     public void sendMessage(Message msg, String toSend) {
         if(msg.getType() == Message.Message_Type.MSG_CHAT)
@@ -88,5 +94,17 @@ public class IRCBot extends PircBot {
         Message msg = new Message_PM(sender, login, hostname, message);
         if(msg.isValid())
             event_handlers.get(msg.getType()).handle_event(msg);
+    }
+    
+    // if a nick change happens on a user that's logged in, change their nick too
+    @Override public void onNickChange(String oldNick, String login, String hostname, String newNick) {
+        Message msg = new Message_NickChange(oldNick, login, hostname, newNick);
+        if(msg.isValid())
+            event_handlers.get(msg.getType()).handle_event(msg);
+    }
+    
+    // if a user that was logged in quits, log em off
+    @Override public void onQuit(String sourceNick, String sourceLogin, String sourceHostname, String reason) {
+        
     }
 }

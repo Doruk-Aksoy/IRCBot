@@ -1,7 +1,5 @@
 package Message;
 
-import java.util.ArrayList;
-
 /*
 *******************
 CHAT MESSAGE FORMAT
@@ -27,6 +25,14 @@ public class Message_Chat extends Message {
     
     public String getText() {
         return content.get(4);
+    }
+    
+    public String getLogin() {
+        return content.get(2);
+    }
+    
+    public String getHostname() {
+        return content.get(3);
     }
 
     public boolean isValid() {

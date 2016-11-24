@@ -1,7 +1,5 @@
 package Message;
 
-import java.util.ArrayList;
-
 /*
 *********************
 ACTION MESSAGE FORMAT
@@ -27,6 +25,14 @@ public class Message_Action extends Message {
     
     public String getText() {
         return content.get(4);
+    }
+    
+    public String getLogin() {
+        return content.get(1);
+    }
+    
+    public String getHostname() {
+        return content.get(2);
     }
     
     public boolean isValid() {

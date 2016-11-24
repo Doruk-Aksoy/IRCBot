@@ -28,6 +28,14 @@ public class Message_PM extends Message {
         return content.get(3);
     }
     
+    public String getLogin() {
+        return content.get(1);
+    }
+    
+    public String getHostname() {
+        return content.get(2);
+    }
+    
     public boolean isValid() {
         return content.size() == 4;
     }

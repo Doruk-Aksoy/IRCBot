@@ -16,7 +16,6 @@ public class Database_Connection {
     private String DB_PASSWORD = null;
     
     private Connection connection = null;
-    private Statement st = null;
     
     private Database_Connection() {
         try {
@@ -62,16 +61,7 @@ public class Database_Connection {
         connection.close();
     }
     
-    public ResultSet query(String s) throws SQLException {
-        st = connection.createStatement();
-        return st.executeQuery(s);
-    }
-    
-    public boolean userExists(String name) throws SQLException {
-        return query("SELECT login FROM Users WHERE login='" + name + "'").next();
-    }
-    
-    public void addUser(String name, String password) throws SQLException {
-        query("INSERT INTO Users(login, password, high_score, games_won) VALUES('" + name + "', '" + password + "', 0, 0)");
+    public Connection getConnection() {
+        return connection;
     }
 }
