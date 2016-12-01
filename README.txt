@@ -1,0 +1,1 @@
+* Requires pircbot-1.5.0 and JDBC (ojdbc6) libraries to compile.
