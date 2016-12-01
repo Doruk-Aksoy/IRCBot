@@ -1,6 +1,6 @@
 package Command;
 
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 import Message.Message;
 import Parsing.*;
 import ircbot.IRCBot;
@@ -15,7 +15,7 @@ public class Command_Invalid implements Command {
         Parser p = new StringSeperator();
         String[] text = p.parse(msg.getText());
         IRCBot Bot = IRCBot.getInstance();
-        String toSend = Constant_Data_Manager.invalid_command;
+        String toSend = Message_Data.invalid_command;
         Bot.sendMessage(msg, toSend);
     }
 }

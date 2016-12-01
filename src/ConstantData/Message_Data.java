@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Constant_Data_Manager {
+public class Message_Data {
     // help commands
     public static final String help_command = ".help";
     public static final String helpregister_command = ".help register";
@@ -17,6 +17,7 @@ public class Constant_Data_Manager {
     public static final String login_command = ".login";
     public static final String stats_command = ".stats";
     public static final String keywords_command = ".keyword";
+    public static final String join_command = ".join";
     
     // Some generic error messages
     public static final String invalid_command = "Invalid command. See '.help' for a list of valid commands.";
@@ -49,10 +50,4 @@ public class Constant_Data_Manager {
     public static final String stat_begin_message = "Checking user's score data...";
     public static final String stat_nouser = "Sorry, no user was found with the given name.";
     public static final String no_score_message = "It seems this user hasn't participated in any games!";
-    
-    // Game constants
-    public static final int jeopardy_rounds = 9;
-    public static final int scramble_rounds = 10;
-    
-    public static final List<String> scramble_words = Collections.unmodifiableList(Arrays.asList("foo", "bar"));
 }

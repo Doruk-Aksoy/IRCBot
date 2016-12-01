@@ -3,7 +3,7 @@ package Command;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 import Database.*;
 import Message.Message;
 import Parsing.*;
@@ -34,13 +34,13 @@ public class Command_Login implements Command {
         IRCBot Bot = IRCBot.getInstance();
         String sender = msg.getSender();
         Database_Connection DB = Database_Connection.getInstance();
-        Bot.sendMessage(msg, Constant_Data_Manager.login_begin_message);
+        Bot.sendMessage(msg, Message_Data.login_begin_message);
         try {
             Query_Handler QH = new Query_Handler();
             DB.connect();
             // 1 is the first parameter
             if(!QH.userExists(DB.getConnection(), text[1]))
-                Bot.sendMessage(msg, Constant_Data_Manager.login_nouser);
+                Bot.sendMessage(msg, Message_Data.login_nouser);
             else {
                 // get the md5 hash of password
                 Parser hasher = new MD5Hasher();
@@ -49,22 +49,22 @@ public class Command_Login implements Command {
                     IRCBot_UserManager UM = Bot.getUserManager();
                     // did this user log in already
                     if(UM.getUser(text[1]) != null)
-                        Bot.sendMessage(msg, Constant_Data_Manager.login_already);
+                        Bot.sendMessage(msg, Message_Data.login_already);
                     else {
                         ResultSet rs = QH.getMostRecentResult();
                         // we know this has to be a unique result
                         UserCredentials uc = new UserCredentials(sender, text[1], msg.getLogin(), msg.getHostname());
                         GameUser user = new NormalUser(uc, rs.getInt("ID"), 0);
                         UM.addUser(user);
-                        Bot.sendMessage(msg, Constant_Data_Manager.login_success);
+                        Bot.sendMessage(msg, Message_Data.login_success);
                     }
                 }
                 else
-                    Bot.sendMessage(msg, Constant_Data_Manager.login_invalid_password);
+                    Bot.sendMessage(msg, Message_Data.login_invalid_password);
             }
         }
         catch (SQLException e) {
-            Bot.sendMessage(sender, Constant_Data_Manager.register_dbconnection_fail);
+            Bot.sendMessage(sender, Message_Data.register_dbconnection_fail);
             System.out.println(e);
         }
         // close database after registering

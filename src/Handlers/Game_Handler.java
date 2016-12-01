@@ -1,7 +1,7 @@
 package Handlers;
 
 import Command.*;
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 import Message.Message;
 import ircbot.IRCBot;
 
@@ -12,11 +12,11 @@ public class Game_Handler implements Event_Handler {
         Command.Command_Validity validity = cmd.validate(msg);
         IRCBot Bot = IRCBot.getInstance();
         if(validity == Command.Command_Validity.CMD_POSSIBLYBAD) {
-            Bot.sendMessage(msg, Constant_Data_Manager.possiblywrong_command);
+            Bot.sendMessage(msg, Message_Data.possiblywrong_command);
             return false;
         }
         else if(validity == Command.Command_Validity.CMD_BADFORMAT) {
-            Bot.sendMessage(msg, Constant_Data_Manager.bad_format);
+            Bot.sendMessage(msg, Message_Data.bad_format);
             return false;
         }
         cmd.operate(msg);

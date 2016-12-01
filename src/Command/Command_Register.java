@@ -2,7 +2,7 @@ package Command;
 
 import java.sql.*;
 
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 import Database.Database_Connection;
 import Database.Query_Handler;
 import Message.Message;
@@ -36,24 +36,24 @@ public class Command_Register implements Command {
         String[] text = p.parse(msg.getText());
         if(verifyFormat(text) == true) {
             Database_Connection DB = Database_Connection.getInstance();
-            toSend = Constant_Data_Manager.register_begin_message;
+            toSend = Message_Data.register_begin_message;
             Bot.sendMessage(sender, toSend);
             try {
                 Query_Handler QH = new Query_Handler();
                 DB.connect();
                 // 1 is the first parameter
                 if(QH.userExists(DB.getConnection(), text[1]))
-                    toSend = Constant_Data_Manager.register_user_exists;
+                    toSend = Message_Data.register_user_exists;
                 else {
                     // save the md5 hash of password
                     Parser hasher = new MD5Hasher();
                     // get 1st element of returned array
                     QH.addUser(DB.getConnection(), text[1], hasher.parse(text[2])[0]);
-                    toSend = Constant_Data_Manager.register_success;
+                    toSend = Message_Data.register_success;
                 }
             }
             catch (SQLException e) {
-                toSend = Constant_Data_Manager.register_dbconnection_fail;
+                toSend = Message_Data.register_dbconnection_fail;
                 Bot.sendMessage(sender, toSend);
                 System.out.println(e);
             }
@@ -69,7 +69,7 @@ public class Command_Register implements Command {
         }
         else {
             // data sent to bot was invalid
-            toSend = Constant_Data_Manager.bad_format;
+            toSend = Message_Data.bad_format;
         }
         Bot.sendMessage(msg, toSend);
     }

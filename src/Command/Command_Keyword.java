@@ -19,9 +19,7 @@ public class Command_Keyword implements Command {
     }
     
     private boolean verifyFormat(String[] s) {
-        if(s != null && s.length >= 3 && s.length <= Feature_CD.keyword_maxcount)
-            return true;
-        return false;
+        return s != null && s.length >= 3 && s.length <= Feature_CD.keyword_maxcount;
     }
     
     public void operate(Message msg) {

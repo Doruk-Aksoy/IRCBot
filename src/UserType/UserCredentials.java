@@ -2,7 +2,7 @@ package UserType;
 
 public class UserCredentials {
     private String IRCname;
-    private String username; // this is the database login
+    private String username; // this is the database login and this is unique
     private String login; // this is the IRC login!
     private String hostname;
     
@@ -47,5 +47,5 @@ public class UserCredentials {
     
     public void setHostname(String hostname) {
         this.hostname = hostname;
-    } 
+    }
 }

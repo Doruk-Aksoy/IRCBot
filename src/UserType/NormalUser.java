@@ -7,6 +7,5 @@ public class NormalUser extends GameUser {
         this.score = s;
         this.type = User_Type.USER_NORMAL;
         this.uc = cred;
-        this.keywords = new ArrayList<String>();
     }
 }

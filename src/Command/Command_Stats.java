@@ -3,7 +3,7 @@ package Command;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 import ConstantData.Feature_CD;
 import Database.*;
 import Message.Message;
@@ -39,7 +39,7 @@ public class Command_Stats implements Command {
         String[] text = p.parse(msg.getText());
         String sender = msg.getSender();
         Database_Connection DB = Database_Connection.getInstance();
-        Bot.sendMessage(msg, Constant_Data_Manager.stat_begin_message);
+        Bot.sendMessage(msg, Message_Data.stat_begin_message);
         try {
             Query_Handler QH = new Query_Handler();
             DB.connect();
@@ -55,13 +55,13 @@ public class Command_Stats implements Command {
                 search_name = u.getUserName();
             // now query from the db
             if(!QH.getUserScores(DB.getConnection(), search_name))
-                Bot.sendMessage(msg, Constant_Data_Manager.stat_nouser);
+                Bot.sendMessage(msg, Message_Data.stat_nouser);
             else {
                 Bot.getFeature(Feature_CD.stat_evaluation).execute(msg, QH.getMostRecentResult());
             }
         }
         catch (SQLException e) {
-            Bot.sendMessage(sender, Constant_Data_Manager.register_dbconnection_fail);
+            Bot.sendMessage(sender, Message_Data.register_dbconnection_fail);
             System.out.println(e);
         }
         // close database after registering

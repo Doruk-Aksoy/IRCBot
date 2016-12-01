@@ -6,20 +6,20 @@
 package Command.HelpCommands;
 
 import Command.Command;
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 import Message.Message;
 import ircbot.IRCBot;
 
 public class Command_Help_Keyword implements Command {
     @Override public Command_Validity validate(Message msg) {
-        if(msg.getText().equals(Constant_Data_Manager.helpkeyword_command))
+        if(msg.getText().equals(Message_Data.helpkeyword_command))
             return Command_Validity.CMD_VALID;
         return Command_Validity.CMD_BADFORMAT;
     }
     
     @Override public void operate(Message msg) {
         IRCBot Bot = IRCBot.getInstance();
-        String toSend = Constant_Data_Manager.keyword_help_message;
+        String toSend = Message_Data.keyword_help_message;
         Bot.sendMessage(msg.getChannel(), toSend);
     }
 }

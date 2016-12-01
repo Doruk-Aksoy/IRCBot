@@ -7,10 +7,10 @@ public abstract class GameUser {
         USER_NORMAL, USER_ADMIN
     }
     
+    // id is unique
     protected Integer ID;
     protected Integer score;
     protected User_Type type;
-    protected ArrayList<String> keywords;
     protected UserCredentials uc;
     
     public GameUser() { }
@@ -44,19 +44,7 @@ public abstract class GameUser {
         this.type = T;
     }
     
-    public ArrayList<String> getKeywords() {
-        return keywords;
-    }
-    
-    public boolean isKeyword(String word) {
-        return keywords.contains(word);
-    }
-    
-    public void addKeyword(String word) {
-        keywords.add(word);
-    }
-    
-    public void setIRCName(String name) {
-        uc.setIRCName(name);
+    public void setIRCName(String s) {
+        uc.setIRCName(s);
     }
 }

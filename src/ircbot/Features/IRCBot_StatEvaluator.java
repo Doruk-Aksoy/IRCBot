@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import ircbot.IRCBot;
 import Message.Message;
-import ConstantData.Constant_Data_Manager;
+import ConstantData.Message_Data;
 
 // takes a resultset
 public class IRCBot_StatEvaluator implements IRCBot_Feature {
@@ -33,7 +33,7 @@ public class IRCBot_StatEvaluator implements IRCBot_Feature {
         }
         catch(SQLException e) {
             System.out.println(e);
-            Bot.sendMessage(msg, Constant_Data_Manager.register_dbconnection_fail);
+            Bot.sendMessage(msg, Message_Data.register_dbconnection_fail);
         }
     }
 }

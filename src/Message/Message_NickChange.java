@@ -1,9 +1,9 @@
 package Message;
 
 /*
-*******************
-CHAT MESSAGE FORMAT
-*******************
+**************************
+NICK CHANGE MESSAGE FORMAT
+**************************
 
 String oldNick, String login, String hostname, String newNick
 

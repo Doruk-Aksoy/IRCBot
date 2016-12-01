@@ -12,5 +12,6 @@ public class IRCBotMain {
         // Connect to IRC -- TODO: Take input from user via GUI interaction
         Bot.connect("irc.esper.net");
         Bot.joinChannel("#mxu");
+        Bot.addChannel("mxu");
     }
 }

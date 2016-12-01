@@ -1,13 +1,13 @@
 package Message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 // Message object for handling communication easier
 public abstract class Message {
     public enum Message_Type {
         MSG_CHAT,
         MSG_PM,
-        MSG_ACTION,
         MSG_GAME,
         MSG_NICKCHANGE,
         MSG_QUIT
@@ -18,8 +18,7 @@ public abstract class Message {
     
     public Message(String... A) {
         this.content = new ArrayList<>();
-        for(String s : A)
-            this.content.add(s);
+        this.content.addAll(Arrays.asList(A));
     }
     
     public ArrayList<String> getContent() {

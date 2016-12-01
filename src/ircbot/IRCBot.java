@@ -85,19 +85,22 @@ public class IRCBot extends PircBot {
     
     // This comes with the framework, these are "event functions" that actually trigger when an event happens
     @Override public void onMessage(String channel, String sender, String login, String hostname, String message) {
-        Message msg = new Message_Chat(channel, sender, login, hostname, message);
+        Message_Factory MB = new Message_Factory();
+        Message msg = MB.build(Message.Message_Type.MSG_CHAT, channel, sender, login, hostname, message);
         if(msg.isValid())
             event_handlers.get(msg.getType()).handle_event(msg);
     }
     
     @Override public void onPrivateMessage(String sender, String login, String hostname, String message) {
-        Message msg = new Message_PM(sender, login, hostname, message);
+        Message_Factory MB = new Message_Factory();
+        Message msg = MB.build(Message.Message_Type.MSG_PM, sender, login, hostname, message);
         if(msg.isValid())
             event_handlers.get(msg.getType()).handle_event(msg);
     }
     
     // if a nick change happens on a user that's logged in, change their nick too
     @Override public void onNickChange(String oldNick, String login, String hostname, String newNick) {
+        // no need for builder here, the message type can only be one thing
         Message msg = new Message_NickChange(oldNick, login, hostname, newNick);
         if(msg.isValid())
             event_handlers.get(msg.getType()).handle_event(msg);
@@ -105,6 +108,8 @@ public class IRCBot extends PircBot {
     
     // if a user that was logged in quits, log em off
     @Override public void onQuit(String sourceNick, String sourceLogin, String sourceHostname, String reason) {
-        
+        Message msg = new Message_Quit(sourceNick, sourceLogin, sourceHostname, reason);
+        if(msg.isValid())
+            event_handlers.get(msg.getType()).handle_event(msg);
     }
 }
