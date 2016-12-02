@@ -18,6 +18,7 @@ public class Message_Data {
     public static final String stats_command = ".stats";
     public static final String keywords_command = ".keyword";
     public static final String join_command = ".join";
+    public static final String answer_command = ".ans";
     
     // Some generic error messages
     public static final String invalid_command = "Invalid command. See '.help' for a list of valid commands.";

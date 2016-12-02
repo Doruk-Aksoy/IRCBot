@@ -5,9 +5,9 @@ import java.sql.*;
 import ConstantData.Message_Data;
 import Database.Database_Connection;
 import Database.Query_Handler;
+import Mediator.BotMediator;
 import Message.Message;
 import Parsing.*;
-import ircbot.IRCBot;
 
 public class Command_Register implements Command {
     private String[] text; // has a string array associated with parsing to avoid splitting twice
@@ -29,7 +29,6 @@ public class Command_Register implements Command {
     }
     
     @Override public void operate(Message msg) {
-        IRCBot Bot = IRCBot.getInstance();
         String toSend = null;
         String sender = msg.getSender();
         Parser p = new StringSeperator();
@@ -37,7 +36,7 @@ public class Command_Register implements Command {
         if(verifyFormat(text) == true) {
             Database_Connection DB = Database_Connection.getInstance();
             toSend = Message_Data.register_begin_message;
-            Bot.sendMessage(sender, toSend);
+            BotMediator.sendMessage(sender, toSend);
             try {
                 Query_Handler QH = new Query_Handler();
                 DB.connect();
@@ -54,7 +53,7 @@ public class Command_Register implements Command {
             }
             catch (SQLException e) {
                 toSend = Message_Data.register_dbconnection_fail;
-                Bot.sendMessage(sender, toSend);
+                BotMediator.sendMessage(sender, toSend);
                 System.out.println(e);
             }
             // close database after registering
@@ -71,6 +70,6 @@ public class Command_Register implements Command {
             // data sent to bot was invalid
             toSend = Message_Data.bad_format;
         }
-        Bot.sendMessage(msg, toSend);
+        BotMediator.sendMessage(msg, toSend);
     }
 }
