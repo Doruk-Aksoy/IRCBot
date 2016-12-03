@@ -12,7 +12,9 @@ public class Game_Data {
     public static final int jeopardy_rounds = 9;
     public static final int scramble_rounds = 10;
     
-    public static final List<String> scramble_words = Collections.unmodifiableList(Arrays.asList("foo", "bar"));
+    public static final List<String> game_names = Collections.unmodifiableList(Arrays.asList("scramble", "hangman", "jeopardy"));
+    
+    public static final List<String> scramble_words = Collections.unmodifiableList(Arrays.asList("involuntary", "regurgitation"));
     
     // the commands that are of category "Game"
     public static final List<String> game_commands = Collections.unmodifiableList(Arrays.asList(Message_Data.join_command, Message_Data.answer_command));

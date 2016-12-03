@@ -2,26 +2,24 @@ package ircbot;
 
 import org.jibble.pircbot.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import Handlers.Event_Handler;
 import Handlers.Event_Handler_Builder;
 import Message.*;
 import ircbot.Features.*;
+import ircbot.datamanager.IRCBot_DataManager;
 
 public class IRCBot extends PircBot {
     // members
     private static IRCBot instance = null;
-    private ArrayList<String> channels;
-    private IRCBot_UserManager user_manager;
+    private IRCBot_DataManager data_manager;
     // messages get mapped to events depending on type
     private HashMap<Message.Message_Type, Event_Handler> event_handlers;
     private IRCBot_FeatureList features;
     
     private IRCBot() {
-        this.channels = new ArrayList<>();
-        this.user_manager = new IRCBot_UserManager();
+        this.data_manager = new IRCBot_DataManager();
         this.features = new IRCBot_FeatureList();
         Event_Handler_Builder EB = new Event_Handler_Builder();
         this.event_handlers = EB.build();
@@ -41,38 +39,12 @@ public class IRCBot extends PircBot {
         this.setName(s);
     }
     
-    public IRCBot_UserManager getUserManager() {
-        return user_manager;
-    }
-    
-    public void addChannel(String s) {
-        channels.add(s);
-    }
-    
-    public void deleteChannel(int i) {
-        try {
-            channels.remove(i);
-        } catch (IndexOutOfBoundsException I) {
-            System.err.println("IndexOutOfBoundsException: " + I.getMessage());
-        }
-    }
-    
-    // exception free version
-    public void deleteChannel(String s) {
-        channels.remove(s);
-    }
-    
-    public String getChannel(int i) {
-        try {
-            return channels.get(i);
-        } catch(IndexOutOfBoundsException I) {
-            System.err.println("IndexOutOfBoundsException: " + I.getMessage());
-            return null;
-        }
-    }
-    
     public IRCBot_Feature getFeature(String s) {
-       return features.getFeature(s);
+        return features.getFeature(s);
+    }
+    
+    public IRCBot_DataManager getDataManager() {
+        return data_manager;
     }
     
     // because message formats are different, we have to have an overloaded version here
@@ -111,5 +83,12 @@ public class IRCBot extends PircBot {
         Message msg = new Message_Quit(sourceNick, sourceLogin, sourceHostname, reason);
         if(msg.isValid())
             event_handlers.get(msg.getType()).handle_event(msg);
+    }
+    
+    // this is to make sure channels are saved on joins using the join command of the framework
+    public void joinChannel(String channel, boolean mode) {
+        joinChannel(channel);
+        if(mode)
+            data_manager.getChannelManager().addChannel(channel);
     }
 }

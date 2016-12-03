@@ -15,27 +15,27 @@ public class Message_NickChange extends Message {
         this.type = Message.Message_Type.MSG_NICKCHANGE;
     }
     
-    public String getChannel() {
+    @Override public String getChannel() {
         return content.get(0);
     }
     
-    public String getSender() {
+    @Override public String getSender() {
         return content.get(3);
     }
     
-    public String getText() {
+    @Override public String getText() {
         return content.get(3);
     }
     
-    public String getLogin() {
+    @Override public String getLogin() {
         return content.get(1);
     }
     
-    public String getHostname() {
+    @Override public String getHostname() {
         return content.get(2);
     }
 
-    public boolean isValid() {
+    @Override public boolean isValid() {
         return content.size() == 4;
     }
     

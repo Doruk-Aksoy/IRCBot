@@ -15,9 +15,7 @@ public class Command_Stats implements Command {
     private String[] text; // has a string array associated with parsing to avoid splitting twice
     
     private boolean verifyFormat(String[] s) {
-        if(s != null && s.length == 2)
-            return true;
-        return false;
+        return s != null && s.length == 2;
     }
     
     @Override public Command_Validity validate(Message msg) {
@@ -33,7 +31,6 @@ public class Command_Stats implements Command {
     // checks user score
     @Override public void operate(Message msg) {
         Parser p = new StringSeperator();
-        String[] text = p.parse(msg.getText());
         String sender = msg.getSender();
         Database_Connection DB = Database_Connection.getInstance();
         BotMediator.sendMessage(msg, Message_Data.stat_begin_message);

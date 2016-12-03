@@ -1,4 +1,4 @@
-package ircbot;
+package ircbot.datamanager;
 
 import java.util.ArrayList;
 import UserType.*;
@@ -50,5 +50,9 @@ public class IRCBot_UserManager {
                 return u;
         }
         return null;
+    }
+    
+    public int getUserCount() {
+        return users.size();
     }
 }

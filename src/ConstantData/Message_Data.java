@@ -28,7 +28,7 @@ public class Message_Data {
     
     // Help Messages
     public static final String gen_help_message = "Hello user! This is the IRCBot made by IvanDobrovski. It can do many stuff! Valid commands: .help command_name, .join, .keyword, .login, .register, .stats";
-    public static final String join_help_message = "Use this to join a game before it begins. You can only join one game at a time. You also need to be a registered user in order to join. Usage: .join game_name";
+    public static final String join_help_message = "Use this to join a game before it begins. You can only join one game at a time. You also need to be a registered user in order to join. Usage: .join game_name. Valid game names: Scramble.";
     public static final String stats_help_message = "Shows stats of a user, such as high score, games won and such. Usage: .stats username";
     public static final String register_help_message = "In order to participate in activities that save information (such as games), you must first register. Usage: .register username password";
     public static final String login_help_message = "Logs you in. Let's you participate in games and other features. Usage: .login username password";

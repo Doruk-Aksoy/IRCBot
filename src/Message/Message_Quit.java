@@ -15,23 +15,23 @@ public class Message_Quit extends Message {
         this.type = Message.Message_Type.MSG_QUIT;
     }
     
-    public String getChannel() {
+    @Override public String getChannel() {
         return content.get(3);
     }
     
-    public String getSender() {
+    @Override public String getSender() {
         return content.get(0);
     }
     
-    public String getText() {
+    @Override public String getText() {
         return content.get(3);
     }
     
-    public String getLogin() {
+    @Override public String getLogin() {
         return content.get(1);
     }
     
-    public String getHostname() {
+    @Override public String getHostname() {
         return content.get(2);
     }
     

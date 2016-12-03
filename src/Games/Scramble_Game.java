@@ -1,7 +1,15 @@
 package Games;
 
 public class Scramble_Game extends ChatGame {
-    public void run() {
+    @Override public void initialize() {
+        
+    }
+    
+    @Override public void play() {
+        
+    }
+    
+    @Override public void finish() {
         
     }
 }

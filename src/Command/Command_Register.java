@@ -32,7 +32,6 @@ public class Command_Register implements Command {
         String toSend = null;
         String sender = msg.getSender();
         Parser p = new StringSeperator();
-        String[] text = p.parse(msg.getText());
         if(verifyFormat(text) == true) {
             Database_Connection DB = Database_Connection.getInstance();
             toSend = Message_Data.register_begin_message;

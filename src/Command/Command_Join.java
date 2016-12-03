@@ -1,6 +1,6 @@
 package Command;
 
-import ConstantData.Feature_CD;
+import ConstantData.Game_Data;
 import Message.Message;
 import Parsing.Parser;
 import Parsing.StringSeperator;
@@ -18,11 +18,19 @@ public class Command_Join implements Command {
         return Command.Command_Validity.CMD_VALID;
     }
     
-    private boolean verifyFormat(String[] s) {
-        return s != null && s.length >= 3 && s.length <= Feature_CD.keyword_maxcount;
+    private boolean isGameName(String s) {
+        for(String comp : Game_Data.game_names) {
+            if(comp.equals(s.toLowerCase()))
+                return true;
+        }
+        return false;
     }
     
-    public void operate(Message msg) {
+    private boolean verifyFormat(String[] s) {
+        return s != null && s.length == 2 && isGameName(s[1]);
+    }
+    
+    @Override public void operate(Message msg) {
         
     }
 }
