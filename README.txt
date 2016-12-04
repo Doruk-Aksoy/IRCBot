@@ -6,3 +6,5 @@ ABOUT
 REQUIREMENTS
 
 * Requires pircbot-1.5.0 and JDBC (ojdbc6) libraries to compile.
+    - PIRCBot: http://www.jibble.org/pircbot.php
+    - JDBC: http://www.oracle.com/technetwork/apps-tech/jdbc-112010-090769.html
