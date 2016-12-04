@@ -30,7 +30,14 @@ public class Command_Join implements Command {
         return s != null && s.length == 2 && isGameName(s[1]);
     }
     
-    @Override public void operate(Message msg) {
+    // initiates an unranked player vs bot mode
+    private void operate_PM() {
         
+    }
+    
+    @Override public void operate(Message msg) {
+        if(msg.getChannel() == null)
+            operate_PM(); // this came from a PM, initiate an unranked game mode
+        // check if a game like this was created before, if not, create
     }
 }

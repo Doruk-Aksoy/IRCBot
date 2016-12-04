@@ -1,4 +1,5 @@
 package ircbot;
+
 // Update here later with generic stuff and GUI!
 // This is the part that has the main execution
 public class IRCBotMain {

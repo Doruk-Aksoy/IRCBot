@@ -11,7 +11,11 @@ public class MD5Hasher implements Parser {
     public MD5Hasher() { }
     
     @Override public String[] parse(String s) {
-        String[] res = new String[1];
+        return null;
+    }
+    
+    @Override public String parseSingle(String s) {
+        String res;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hash = null;
@@ -19,13 +23,13 @@ public class MD5Hasher implements Parser {
                 hash = md.digest(s.getBytes("UTF-8"));
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(MD5Hasher.class.getName()).log(Level.SEVERE, null, ex);
-                res[0] = "";
+                res = "";
             }
             BigInteger bi = new BigInteger(1, hash);
-            res[0] = String.format("%0" + (hash.length << 1) + "X", bi);
+            res = String.format("%0" + (hash.length << 1) + "X", bi);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(MD5Hasher.class.getName()).log(Level.SEVERE, null, ex);
-            res[0] = "";
+            res = "";
         }
         return res;
     }

@@ -1,9 +1,5 @@
 package ConstantData;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public class Message_Data {
     // help commands
     public static final String help_command = ".help";
@@ -51,4 +47,7 @@ public class Message_Data {
     public static final String stat_begin_message = "Checking user's score data...";
     public static final String stat_nouser = "Sorry, no user was found with the given name.";
     public static final String no_score_message = "It seems this user hasn't participated in any games!";
+    
+    // Game join messages
+    public static final String player_join_begin_scramble = "You have " + Game_Data.TIME_wait_before_gamestart + " seconds before the Scramble game begins!";
 }

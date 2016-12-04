@@ -16,8 +16,9 @@ public class Message_PM extends Message {
         this.type = Message_Type.MSG_PM;
     }
     
+    // PMs don't have channels
     @Override public String getChannel() {
-        return content.get(1);
+        return null;
     }
     
     @Override public String getSender() {

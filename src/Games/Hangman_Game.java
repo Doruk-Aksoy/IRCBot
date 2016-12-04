@@ -1,6 +1,10 @@
 package Games;
 
 public class Hangman_Game extends ChatGame {
+    public Hangman_Game(String c) {
+        super(c);
+    }
+    
     @Override public void initialize() {
         
     }

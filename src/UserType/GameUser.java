@@ -1,7 +1,5 @@
 package UserType;
 
-import java.util.ArrayList;
-
 public abstract class GameUser {
     public enum User_Type {
         USER_NORMAL, USER_ADMIN

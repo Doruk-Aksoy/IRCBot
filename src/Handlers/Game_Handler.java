@@ -6,7 +6,7 @@ import Mediator.BotMediator;
 import Message.Message;
 
 public class Game_Handler implements Event_Handler {
-    public boolean handle_cmd(Command cmd, Message msg) {
+    @Override public boolean handle_cmd(Command cmd, Message msg) {
         if(cmd == null)
             return false;
         Command.Command_Validity validity = cmd.validate(msg);
@@ -25,11 +25,6 @@ public class Game_Handler implements Event_Handler {
     @Override public boolean handle_event(Message msg) {
         Command_List CL = Command_List.getInstance();
         String text = msg.getText();
-        Command cmd = CL.getCommand(text);
-        if(cmd != null) {
-            cmd.operate(msg);
-            return true;
-        }
-        return false;
+        return handle_cmd(CL.getCommand(text), msg);
     }
 }
