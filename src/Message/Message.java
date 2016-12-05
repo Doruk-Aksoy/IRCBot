@@ -9,6 +9,7 @@ public abstract class Message {
         MSG_CHAT,
         MSG_PM,
         MSG_GAME,
+        MSG_GAMEPM,
         MSG_NICKCHANGE,
         MSG_QUIT
     }
@@ -27,6 +28,10 @@ public abstract class Message {
  
     public Message_Type getType() {
         return type;
+    }
+    
+    public boolean isPM() {
+        return type == Message_Type.MSG_PM || type == Message_Type.MSG_GAMEPM;
     }
     
     public abstract boolean isValid();

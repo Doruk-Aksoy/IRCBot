@@ -30,6 +30,12 @@ public class BotMediator {
         return UM.getUser(IRCName, name);
     }
     
+    public static boolean isLoggedIn(String IRCName) {
+        IRCBot Bot = IRCBot.getInstance();
+        IRCBot_UserManager UM = Bot.getDataManager().getUserManager();
+        return UM.getUser(IRCName) != null;
+    }
+    
     public static void addUser(GameUser u) {
         IRCBot Bot = IRCBot.getInstance();
         IRCBot_UserManager UM = Bot.getDataManager().getUserManager();

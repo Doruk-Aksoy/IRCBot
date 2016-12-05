@@ -8,5 +8,6 @@ public class NormalUser extends GameUser {
         this.type = User_Type.USER_NORMAL;
         this.uc = cred;
         this.ID = i;
+        this.in_game = false;
     }
 }

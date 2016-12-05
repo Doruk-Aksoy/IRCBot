@@ -7,24 +7,12 @@ import Message.Message;
 
 public class Game_Handler implements Event_Handler {
     @Override public boolean handle_cmd(Command cmd, Message msg) {
-        if(cmd == null)
-            return false;
-        Command.Command_Validity validity = cmd.validate(msg);
-        if(validity == Command.Command_Validity.CMD_POSSIBLYBAD) {
-            BotMediator.sendMessage(msg, Message_Data.possiblywrong_command);
-            return false;
-        }
-        else if(validity == Command.Command_Validity.CMD_BADFORMAT) {
-            BotMediator.sendMessage(msg, Message_Data.bad_format);
-            return false;
-        }
-        cmd.operate(msg);
-        return true;
+        CommandValidation_Handler CH = new CommandValidation_Handler();
+        return CH.handle_cmd(cmd, msg);
     }
     
     @Override public boolean handle_event(Message msg) {
         Command_List CL = Command_List.getInstance();
-        String text = msg.getText();
-        return handle_cmd(CL.getCommand(text), msg);
+        return handle_cmd(CL.getCommand(msg.getText()), msg);
     }
 }

@@ -1,10 +1,9 @@
 package ircbot.datamanager;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.Callable;
 
 import ConstantData.Game_Data;
 import Games.ChatGame;
@@ -14,15 +13,28 @@ import Games.ChatGame;
 public class IRCBot_GameManager {
     // this is the service that we will use for handling game processes, which will contain subtasks in them
     private final ExecutorService service;
-    private final ConcurrentHashMap<ChatGame, Future<String>> active_games;
+    private final HashMap<ChatGame, Future<String>> active_games;
 
     public IRCBot_GameManager() {
-        service = Executors.newFixedThreadPool(Game_Data.MAX_GAME_TYPES * 12);
-        active_games = new ConcurrentHashMap<>();
+        service = Executors.newFixedThreadPool(Game_Data.MAX_GAME_TYPES * Game_Data.MAX_THREADS);
+        active_games = new HashMap<>();
     }
     
     public void addGame(ChatGame G) {
-        Future<String> F = service.submit(new Callable<String>() { public String call() { return G.run(); } } );
+        // uses lambda expression
+        Future<String> F = service.submit( () -> G.run() );
         active_games.put(G, F);
     }
+    
+    public ChatGame gameExists(ChatGame G) {
+        for (HashMap.Entry<ChatGame, Future<String>> elem : active_games.entrySet()) {
+            if(elem.getKey().equals(G)) {
+                return elem.getKey();
+            }
+        }
+        System.out.println("Game not found! Creating...");
+        return null;
+    }
+    
+    // add a fixedDelay task here that sweeps over all games, deletes if they are in STAT_DONE state
 }

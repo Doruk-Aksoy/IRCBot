@@ -1,7 +1,6 @@
 package Message;
 
 import Parsing.*;
-import Command.Command;
 import Command.Command_List;
 import ConstantData.Game_Data;
 
@@ -24,8 +23,11 @@ public class Message_Factory {
         String begin = P.parse(message)[0];
         Command_List CL = Command_List.getInstance();
         if(CL.getCommand(begin) != null) {
-            if(isGameMessage(begin))
+            if(isGameMessage(begin)) {
+                if(default_type == Message.Message_Type.MSG_PM)
+                    return new Message_GamePM(A);
                 return new Message_Game(A);
+            }
         }
         return make_default(default_type, A);
     }

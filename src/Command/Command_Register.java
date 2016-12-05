@@ -46,7 +46,7 @@ public class Command_Register implements Command {
                     // save the md5 hash of password
                     Parser hasher = new MD5Hasher();
                     // get 1st element of returned array
-                    QH.addUser(DB.getConnection(), text[1], hasher.parse(text[2])[0]);
+                    QH.addUser(DB.getConnection(), text[1], hasher.parseSingle(text[2]));
                     toSend = Message_Data.register_success;
                 }
             }

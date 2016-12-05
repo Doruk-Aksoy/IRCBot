@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 public class Query_Handler {
     private ResultSet rs = null;
+    private final String users_table_format = "Users(login, password, score, highest_score, games_won, games_played)";
     
     public Query_Handler() { }
     
@@ -31,11 +32,11 @@ public class Query_Handler {
     }
     
     public boolean getUserScores(Connection connection, String username) throws SQLException {
-        rs = query(connection, "SELECT high_score, games_won FROM Users WHERE login='" + username + "'");
+        rs = query(connection, "SELECT score, highest_score, games_won, games_played FROM Users WHERE login='" + username + "'");
         return rs.next();
     }
     
     public void addUser(Connection connection, String name, String password) throws SQLException {
-        rs = query(connection, "INSERT INTO Users(login, password, high_score, games_won) VALUES('" + name + "', '" + password + "', 0, 0)");
+        rs = query(connection, "INSERT INTO " + users_table_format + " VALUES('" + name + "', '" + password + "', 0, 0, 0, 0)");
     }
 }

@@ -49,9 +49,9 @@ public class IRCBot extends PircBot {
     
     // because message formats are different, we have to have an overloaded version here
     public void sendMessage(Message msg, String toSend) {
-        if(msg.getType() == Message.Message_Type.MSG_CHAT)
+        if(!msg.isPM())
             sendMessage(msg.getChannel(), toSend);
-        else if(msg.getType() == Message.Message_Type.MSG_PM)
+        else
             sendMessage(msg.getSender(), toSend);
     }
     

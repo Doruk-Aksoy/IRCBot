@@ -10,6 +10,7 @@ public abstract class GameUser {
     protected Integer score;
     protected User_Type type;
     protected UserCredentials uc;
+    protected boolean in_game;
     
     public GameUser() { }
     
@@ -44,5 +45,13 @@ public abstract class GameUser {
     
     public void setIRCName(String s) {
         uc.setIRCName(s);
+    }
+    
+    public boolean isInGame() {
+        return in_game;
+    }
+    
+    public void setGameStatus(boolean s) {
+        in_game = true;
     }
 }

@@ -17,6 +17,7 @@ public class Event_Handler_Builder {
         hnd.put(Message.Message_Type.MSG_NICKCHANGE, eh_nick); // to handle nick changes
         hnd.put(Message.Message_Type.MSG_QUIT, eh_quit); // to log off users when they quit
         hnd.put(Message.Message_Type.MSG_GAME, eh_game); // Game related message handler
+        hnd.put(Message.Message_Type.MSG_GAMEPM, eh_game);
         
         return hnd;
     }

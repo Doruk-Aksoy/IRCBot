@@ -1,25 +1,33 @@
 package GameTask;
 
-public abstract class GameTask implements Runnable {
+import Games.ChatGame;
+import java.util.concurrent.Callable;
+
+public abstract class GameTask implements Callable {
     protected String source; // this is the source, can be a channel or a user
-    protected String game_name; // name of the game
+    protected ChatGame game; // this is the game that the task is associated with
     
     public GameTask() { 
         source = null;
+        game = null;
     }
     
-    GameTask(String s, String g) {
+    public GameTask(String s, ChatGame g) {
         source = s;
-        game_name = g;
-    }   
+        game = g;
+    }
 
     public void setSource(String s) {
         source = s;
     }
     
-    public void setGameName(String g) {
-        game_name = g;
+    public void setGame(ChatGame g) {
+        game = g;
     }
     
-    @Override public abstract void run();
+    public ChatGame getGame() {
+        return game;
+    }
+    
+    @Override public abstract String call();
 }

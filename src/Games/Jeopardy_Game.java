@@ -5,6 +5,14 @@ public class Jeopardy_Game extends ChatGame {
         super(c);
     }
     
+    public Jeopardy_Game(String c, boolean weak) {
+        super(c, weak);
+    }
+    
+    @Override public String getName() {
+        return "Jeopardy";
+    }  
+    
     @Override public void initialize() {
         
     }

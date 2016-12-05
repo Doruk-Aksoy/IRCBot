@@ -36,25 +36,22 @@ public class Command_Login implements Command {
         try {
             Query_Handler QH = new Query_Handler();
             DB.connect();
-            // 1 is the first parameter
+            // 1 is the first parameter, login
             if(!QH.userExists(DB.getConnection(), text[1]))
                 BotMediator.sendMessage(msg, Message_Data.login_nouser);
+            else if(BotMediator.isLoggedIn(msg.getSender()))
+                BotMediator.sendMessage(msg, Message_Data.login_already);
             else {
                 // get the md5 hash of password
                 Parser hasher = new MD5Hasher();
-                String pass = hasher.parse(text[2])[0];
+                String pass = hasher.parseSingle(text[2]);
                 if(QH.checkPassword(DB.getConnection(), text[1], pass)) {
-                    // did this user log in already
-                    if(BotMediator.getUser(text[1]) != null)
-                        BotMediator.sendMessage(msg, Message_Data.login_already);
-                    else {
-                        ResultSet rs = QH.getMostRecentResult();
-                        // we know this has to be a unique result
-                        UserCredentials uc = new UserCredentials(sender, text[1], msg.getLogin(), msg.getHostname());
-                        GameUser user = new NormalUser(uc, rs.getInt("ID"), 0);
-                        BotMediator.addUser(user);
-                        BotMediator.sendMessage(msg, Message_Data.login_success);
-                    }
+                    ResultSet rs = QH.getMostRecentResult();
+                    // we know this has to be a unique result
+                    UserCredentials uc = new UserCredentials(sender, text[1], msg.getLogin(), msg.getHostname());
+                    GameUser user = new NormalUser(uc, rs.getInt("ID"), 0);
+                    BotMediator.addUser(user);
+                    BotMediator.sendMessage(msg, Message_Data.login_success);
                 }
                 else
                     BotMediator.sendMessage(msg, Message_Data.login_invalid_password);

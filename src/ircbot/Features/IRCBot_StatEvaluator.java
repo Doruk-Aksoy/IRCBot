@@ -20,7 +20,7 @@ public class IRCBot_StatEvaluator implements IRCBot_Feature {
         return result;
     }
     
-    public void execute(Message msg, ResultSet rs) {
+    @Override public void execute(Message msg, ResultSet rs) {
         IRCBot Bot = IRCBot.getInstance();
         try {
             String name = rs.getString("login");

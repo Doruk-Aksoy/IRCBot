@@ -21,6 +21,9 @@ public class Message_Data {
     public static final String unsafe_command = "Please type that command as a private message to me.";
     public static final String possiblywrong_command = "Invalid command or entered to wrong place. See '.help' for a list of valid commands.";
     public static final String bad_format = "Invalid format. Please use the .help command for more info.";
+    public static final String requireslogin = "You need to be logged in to use this command. See '.help login' for more info.";
+    public static final String game_nojoin = "The game is either full or no longer accepting players.";
+    public static final String ingame_already = "You are already in a game!";
     
     // Help Messages
     public static final String gen_help_message = "Hello user! This is the IRCBot made by IvanDobrovski. It can do many stuff! Valid commands: .help command_name, .join, .keyword, .login, .register, .stats";
@@ -50,4 +53,7 @@ public class Message_Data {
     
     // Game join messages
     public static final String player_join_begin_scramble = "You have " + Game_Data.TIME_wait_before_gamestart + " seconds before the Scramble game begins!";
+
+    // game messages
+    public static final String scramble_question_format = "Unscramble the following word: ";
 }

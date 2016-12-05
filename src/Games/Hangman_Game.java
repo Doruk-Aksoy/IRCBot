@@ -5,6 +5,14 @@ public class Hangman_Game extends ChatGame {
         super(c);
     }
     
+    public Hangman_Game(String c, boolean weak) {
+        super(c, weak);
+    }
+    
+    @Override public String getName() {
+        return "Hangman";
+    }
+    
     @Override public void initialize() {
         
     }
