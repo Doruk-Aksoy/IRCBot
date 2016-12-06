@@ -24,6 +24,12 @@ public class Command_List_Builder {
         hm.put(Message_Data.stats_command, new Command_Stats());
         // Join Game
         hm.put(Message_Data.join_command, new Command_Join());
+        // Create Game
+        hm.put(Message_Data.creategame_command, new Command_Create());
+        // Answer
+        hm.put(Message_Data.answer_command, new Command_Answer());
+        // Test command -- Stop Game
+        hm.put(Message_Data.stopgame_command, new Command_StopGame());
         
         return hm;
     }

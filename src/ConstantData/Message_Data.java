@@ -13,8 +13,10 @@ public class Message_Data {
     public static final String login_command = ".login";
     public static final String stats_command = ".stats";
     public static final String keywords_command = ".keyword";
+    public static final String creategame_command = ".create";
     public static final String join_command = ".join";
     public static final String answer_command = ".ans";
+    public static final String stopgame_command = ".stopgame";
     
     // Some generic error messages
     public static final String invalid_command = "Invalid command. See '.help' for a list of valid commands.";
@@ -24,13 +26,20 @@ public class Message_Data {
     public static final String requireslogin = "You need to be logged in to use this command. See '.help login' for more info.";
     public static final String game_nojoin = "The game is either full or no longer accepting players.";
     public static final String ingame_already = "You are already in a game!";
+    public static final String ingame_cantmakegame = "You can't make another game while associated with another!";
+    public static final String game_doesnotexist = "The game with the specified ID either doesn't exist or is not accepting players.";
+    public static final String not_in_any_game = "You're not in any game!";
+    public static final String not_in_this_game = "You haven't joined the specified game!";
+    public static final String already_correctly_answered = "You have already correctly answered this question!";
+    public static final String no_more_answers = "You have used all your answer rights! You can't answer this question anymore!";
     
     // Help Messages
     public static final String gen_help_message = "Hello user! This is the IRCBot made by IvanDobrovski. It can do many stuff! Valid commands: .help command_name, .join, .keyword, .login, .register, .stats";
-    public static final String join_help_message = "Use this to join a game before it begins. You can only join one game at a time. You also need to be a registered user in order to join. Usage: .join game_name. Valid game names: Scramble.";
+    public static final String join_help_message = "Use this to join a game before it begins. You can only join one game at a time. You also need to be a registered user in order to join. Usage: .join game_id. Game ids are announced when a game is created.";
     public static final String stats_help_message = "Shows stats of a user, such as high score, games won and such. Usage: .stats username";
     public static final String register_help_message = "In order to participate in activities that save information (such as games), you must first register. Usage: .register username password";
     public static final String login_help_message = "Logs you in. Let's you participate in games and other features. Usage: .login username password";
+    public static final String creategame_help_message = "Creates a game for you. Usage: .create game_name. Valid game names: Scramble";
     public static final String keyword_help_message = "Allows you to specify a list of keywords to the bot. Whenever a word among these is used in the channel, you will be alerted. Requires you to be logged in. Usage: .keyword word1 word2 etc. Maximum word length is 30, and you can enter at most 10 words at a time.";
     
     // Registration messages

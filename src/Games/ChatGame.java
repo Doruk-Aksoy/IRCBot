@@ -3,25 +3,32 @@ package Games;
 import java.util.concurrent.ScheduledFuture;
 
 import GameTask.GameTask;
+import Countable.Countable;
+import UserType.GameUser;
 
 // includes an object of this type, because they need to manage their own users actively playing in this
 import ircbot.datamanager.IRCBot_UserManager;
 
-public abstract class ChatGame {
+public abstract class ChatGame extends Countable {
     public enum State {
         STAT_COUNTDOWN,
         STAT_ONGOING,
+        STAT_WANTANSWER,
         STAT_FINISHED,
         STAT_DATABASE,
         STAT_DONE
     }
     
+    // Fat class, seperate stuff later
     protected IRCBot_UserManager um;
     protected boolean game_over;
     protected String source;
     protected State game_state;
     protected ScheduledFuture pending_future;
     protected GameTask pending_task;
+    protected long timer;
+    protected long answers_received;
+    protected static long game_id;
     
     public ChatGame(String c) {
         um = new IRCBot_UserManager();
@@ -30,23 +37,9 @@ public abstract class ChatGame {
         source = c;
         pending_future = null;
         pending_task = null;
-    }
-    
-    // weak construction on purpose, don't waste resources for a temp object
-    public ChatGame(String c, boolean weak) {
-        um = null;
-        game_over = false;
-        source = c;
-        pending_future = null;
-        pending_task = null;
-    }
-    
-    // finish the construction of the half constructed object
-    public void makeWhole() {
-        if(um == null) {
-            um = new IRCBot_UserManager();
-            game_state = State.STAT_COUNTDOWN;
-        }
+        game_id = getInstanceCount();
+        timer = 0;
+        answers_received = 0;
     }
     
     public String getChannel() {
@@ -74,11 +67,23 @@ public abstract class ChatGame {
         return pending_future.cancel(true);
     }
 
+    public long getID() {
+        return game_id;
+    }
+    
+    public long getTimer() {
+        return timer;
+    }
+    
     // Use the template pattern to fill these methods later, but provide a definite skeleton for the games to follow
     public abstract void initialize();
     public abstract void play();
     public abstract void finish();
+    
     public abstract String getName();
+    public abstract int getAnswerCount();
+    public abstract boolean checkAnswer(String[] answer);
+    public abstract void awardUser(GameUser U);
     
     public String run() {
         try {

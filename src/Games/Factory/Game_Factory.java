@@ -15,24 +15,13 @@ public class Game_Factory {
             G = new Scramble_Game(source);
         return G;
     }
-    // weak construction
-    public ChatGame makeGame(String source, String game_name, boolean weak) {
-        ChatGame G;
-        if(game_name.equals("hangman"))
-            G = new Hangman_Game(source, weak);
-        else if(game_name.equals("jeopardy"))
-            G = new Jeopardy_Game(source, weak);
-        else
-            G = new Scramble_Game(source, weak);
-        return G;
-    }
     
-    public ChatGame makeGame(Message msg, boolean weak) {
+    public ChatGame makeGame(Message msg) {
         String source;
         if(msg.getChannel() == null) // implies this was a pm
             source = msg.getSender();
         else
             source = msg.getChannel();
-        return makeGame(source, msg.getText().toLowerCase(), weak);
+        return makeGame(source, msg.getText().toLowerCase());
     }
 }

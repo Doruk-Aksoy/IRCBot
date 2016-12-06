@@ -14,7 +14,7 @@ public class Command_Join implements Command {
     private boolean verifyFormat(String[] s) {
         if(s == null || s.length != 2)
             return false;
-        return isGameName(s[1]);
+        return isInteger(s[1], 10);
     }
     
     // this command requires you to be logged in in order to use
@@ -28,12 +28,16 @@ public class Command_Join implements Command {
         return Command.Command_Validity.CMD_VALID;
     }
     
-    private boolean isGameName(String s) {
-        for(String comp : Game_Data.game_names) {
-            if(comp.equals(s.toLowerCase()))
-                return true;
+    private boolean isInteger(String s, int base) {
+        if(s.isEmpty()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            if(i == 0 && s.charAt(i) == '-') {
+                if(s.length() == 1) return false;
+                else continue;
+            }
+            if(Character.digit(s.charAt(i), base) < 0) return false;
         }
-        return false;
+        return true;
     }
     
     @Override public void operate(Message msg) {
@@ -42,17 +46,13 @@ public class Command_Join implements Command {
         if(u.isInGame())
             BotMediator.sendMessage(msg, Message_Data.ingame_already);
         else {
-            // check if a game like this was created before, if not, create
-            // make a base game for comparisons
-            BotMediator.sendMessage(msg, "Attempting to start Scramble game...");
-            ChatGame template = GameMediator.makeGame(msg);
-            ChatGame G = GameMediator.gameExists(template);
-            // if game is created before
+            // check if this game exists
+            ChatGame G = GameMediator.gameExists(text[1]);
             if(G != null) {
                 // check if game is not full and in countdown state, allow the player to join it if so
                 if(GameMediator.isFull(G) == false && G.getGameState() == ChatGame.State.STAT_COUNTDOWN) {
                     // only allow a user to play one game at a time
-                    u.setGameStatus(true);
+                    u.setGameStatus(G.getID());
                     GameMediator.addUser(G, u);
                     BotMediator.sendMessage(msg, u.getIRCName() + " has joined the " + G.getName() + " game!");
                     // if we're full, don't wait
@@ -62,18 +62,8 @@ public class Command_Join implements Command {
                 else
                     BotMediator.sendMessage(msg, Message_Data.game_nojoin);
             }
-            else { 
-                // create the game, and join this player in it
-                // complete total construction of this game
-                template.makeWhole();
-                u.setGameStatus(true);
-                GameMediator.addUser(template, u);
-                GameMediator.addGame(template);
-                if(template.isRanked())
-                    BotMediator.sendMessage(msg, u.getIRCName() + " has joined the " + template.getName() + " game!");
-                else
-                    System.out.println("Started unranked game with " + u.getIRCName() + ".");
-            }
+            else
+                BotMediator.sendMessage(msg, Message_Data.game_doesnotexist);
         }
     }
 }

@@ -26,15 +26,45 @@ public class IRCBot_GameManager {
         active_games.put(G, F);
     }
     
-    public ChatGame gameExists(ChatGame G) {
+    public ChatGame gameExists(String sID) {
+        // put this into a parser
+        int game_id = 0;
+        try {
+            game_id = Integer.parseInt(sID);
+        } 
+        catch (NumberFormatException e) {
+            return null;
+        }
         for (HashMap.Entry<ChatGame, Future<String>> elem : active_games.entrySet()) {
-            if(elem.getKey().equals(G)) {
+            if(elem.getKey().getID() == game_id) {
                 return elem.getKey();
             }
         }
-        System.out.println("Game not found! Creating...");
+        System.out.println("Game not found!");
         return null;
     }
     
-    // add a fixedDelay task here that sweeps over all games, deletes if they are in STAT_DONE state
+    public HashMap.Entry<ChatGame, Future<String>> getGameFuturePair(String sID) {
+        // put this into a parser
+        int game_id = 0;
+        try {
+            game_id = Integer.parseInt(sID);
+        } 
+        catch (NumberFormatException e) {
+            return null;
+        }
+        for (HashMap.Entry<ChatGame, Future<String>> elem : active_games.entrySet()) {
+            if(elem.getKey().getID() == game_id) {
+                return elem;
+            }
+        }
+        return null;
+    }
+    
+    public void terminate(ChatGame G, Future<String> F) {
+        F.cancel(true);
+        active_games.remove(G);
+    }
+    
+    // when games are finished, they will signal they are done to gamemediator and it will delete them from this array
 }

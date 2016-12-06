@@ -19,8 +19,6 @@ public class Command_Stats implements Command {
     }
     
     @Override public Command_Validity validate(Message msg) {
-        if(msg.getType() != Message.Message_Type.MSG_PM)
-            return Command_Validity.CMD_POSSIBLYBAD;
         Parser p = new StringSeperator();
         text = p.parse(msg.getText());
         if(!verifyFormat(text))

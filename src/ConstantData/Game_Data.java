@@ -10,6 +10,7 @@ public class Game_Data {
     public static final int GAME_max_players = 10;
     public static final int MAX_GAME_TYPES = 3;
     public static final int MAX_THREADS = 12;
+    public static final int CORRECTLY_ANSWERED = -1;
     
     // Jeopardy Data
     public static final int jeopardy_rounds = 9;
@@ -17,13 +18,16 @@ public class Game_Data {
     // Scramble Data
     public static final int scramble_rounds = 10;
     public static final int scramble_time_per_question = 10;
+    public static final int scramble_answer_count = 2;
+    public static final int scramble_time_between_rounds = 5;
+    public static final int scramble_point = 20;
     
     public static final List<String> game_names = Collections.unmodifiableList(Arrays.asList("scramble", "hangman", "jeopardy"));
     
     public static final List<String> scramble_words = buildScramble();
     
     // the commands that are of category "Game"
-    public static final List<String> game_commands = Collections.unmodifiableList(Arrays.asList(Message_Data.join_command, Message_Data.answer_command));
+    public static final List<String> game_commands = Collections.unmodifiableList(Arrays.asList(Message_Data.join_command, Message_Data.answer_command, Message_Data.creategame_command));
 
     private static List<String> buildScramble() {
         return Collections.unmodifiableList(Arrays.asList(

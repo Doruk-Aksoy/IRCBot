@@ -8,6 +8,6 @@ public class IRCBotMain {
         Bot.makeName("Test_Bot");
         // Connect to IRC -- TODO: Take input from user via GUI interaction
         Bot.connect("irc.esper.net");
-        Bot.joinChannel("#mxu", true);
+        Bot.joinChannel("#test123", true);
     }
 }

@@ -6,20 +6,21 @@ public abstract class GameUser {
     }
     
     // id is unique
-    protected Integer ID;
-    protected Integer score;
+    protected long ID;
+    protected long score;
     protected User_Type type;
     protected UserCredentials uc;
-    protected boolean in_game;
+    protected long game_id;
+    protected int answer_count;
     
     public GameUser() { }
     
-    public Integer getId() {
-        return this.ID;
+    public long getId() {
+        return ID;
     }
     
-    public Integer getScore() {
-        return this.score;
+    public long getScore() {
+        return score;
     }
     
     public User_Type getType() {
@@ -39,6 +40,14 @@ public abstract class GameUser {
         return uc;
     }
     
+    public int getAnswerCount() {
+        return answer_count;
+    }
+    
+    public void setAnswerCount(int a) {
+        answer_count = a;
+    }
+    
     public void setType(User_Type T) {
         this.type = T;
     }
@@ -48,10 +57,19 @@ public abstract class GameUser {
     }
     
     public boolean isInGame() {
-        return in_game;
+        return game_id != 0;
     }
     
-    public void setGameStatus(boolean s) {
-        in_game = true;
+    public void setGameStatus(long id) {
+        game_id = id;
+    }
+    
+    public void addScore(long s) {
+        score += s;
+    }
+    
+    public void deduceAnswerCount() {
+        if(answer_count > 0)
+            answer_count--;
     }
 }
