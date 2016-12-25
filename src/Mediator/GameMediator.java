@@ -34,8 +34,10 @@ public class GameMediator {
     
     public static void addUser(ChatGame G, GameUser U) {
         IRCBot_UserManager UM = G.getUserManager();
-        if(UM.getUser(U.getIRCName()) == null)
+        if(UM.getUser(U.getIRCName()) == null) {
+            U.resetStats();
             UM.addUser(U);
+        }
     }
     
     public static boolean isFull(ChatGame G) {
@@ -58,19 +60,19 @@ public class GameMediator {
     
     // we handle it here because otherwise the thread might be waiting on a task and the answers would come up late
     public static void acceptAnswer(ChatGame G, GameUser U, String[] answer) {
-        if(G.checkAnswer(answer) == true)
+        if(G.getGameInfo().checkAnswer(answer) == true)
             G.awardUser(U);
         else {
             U.deduceAnswerCount();
             // do attempt for 1.
-            BotMediator.sendMessage(G.getChannel(), "Wrong answer! You have " + U.getAnswerCount() + " attempts left!");
+            BotMediator.sendMessage(G.getGameInfo().getSource(), "Wrong answer! You have " + U.getAnswerCount() + " attempts left!");
         }
     }
     
     public static void initAnswerCounts(ChatGame G) {
         IRCBot_UserManager UM = G.getUserManager();
         for(int i = 0; i < UM.getUserCount(); ++i)
-            UM.getUser(i).setAnswerCount(G.getAnswerCount());
+            UM.getUser(i).setAnswerCount(G.getGameInfo().getAnswerCount());
     }
     
     public static HashMap.Entry<ChatGame, Future<String>> getGameFuturePair(String sID) {
@@ -78,8 +80,8 @@ public class GameMediator {
         return Bot.getDataManager().getGameManager().getGameFuturePair(sID);
     }
     
-    public static void terminate(ChatGame G, Future<String> F) {
+    public static void terminate(ChatGame G) {
         IRCBot Bot = IRCBot.getInstance();
-        Bot.getDataManager().getGameManager().terminate(G, F);
+        Bot.getDataManager().getGameManager().terminate(G);
     }
 }

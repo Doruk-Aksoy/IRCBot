@@ -32,11 +32,9 @@ public class Command_StopGame implements Command {
     
     // refactor this so bad...
     @Override public void operate(Message msg) {
-        HashMap.Entry<ChatGame, Future<String>> entry = GameMediator.getGameFuturePair(text[1]);
-        ChatGame G = entry.getKey();
-        Future<String> F = entry.getValue();
+        ChatGame G = GameMediator.gameExists(text[1]);
         if(G != null && msg.getSender().equals("IvanDobrovski")) {
-            GameMediator.terminate(G, F);
+            GameMediator.terminate(G);
         }
     }
 }

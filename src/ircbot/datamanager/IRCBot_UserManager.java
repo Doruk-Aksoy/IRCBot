@@ -52,7 +52,20 @@ public class IRCBot_UserManager {
         return null;
     }
     
+    public GameUser getHighestScoreUser() {
+        GameUser res = new NormalUser();
+        for(GameUser u : users) {
+            if(u.getScore() > res.getScore())
+                res = u;
+        }
+        return res;
+    }
+    
     public int getUserCount() {
         return users.size();
+    }
+    
+    public ArrayList<GameUser> getUserList() {
+        return users;
     }
 }

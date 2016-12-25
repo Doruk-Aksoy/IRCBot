@@ -46,14 +46,14 @@ public class Command_Create implements Command {
             // create the game, and join this player in it
             // complete total construction of this game
             ChatGame G = GameMediator.makeGame(msg);
-            BotMediator.sendMessage(msg, "Attempting to start " + G.getName() + " game...");
-            u.setGameStatus(G.getID());
+            BotMediator.sendMessage(msg, "Attempting to start " + G.getGameInfo().getName() + " game...");
+            u.setGameStatus(G.getGameInfo().getGameID());
             GameMediator.addUser(G, u);
             GameMediator.addGame(G);
             if(G.isRanked())
-                BotMediator.sendMessage(msg, u.getIRCName() + " has created the " + G.getName() + " game! Game reference ID: " + G.getID() + ". Use this to join the game!");
+                BotMediator.sendMessage(msg, u.getIRCName() + " has created the " + G.getGameInfo().getName() + " game! Game reference ID: " + G.getGameInfo().getGameID() + ". Use this to join the game!");
             else {
-                BotMediator.sendMessage(msg, "Unranked Scramble game with ID " + G.getID() + " has been created! Use this ID to answer using .ans command.");
+                BotMediator.sendMessage(msg, "Unranked Scramble game with ID " + G.getGameInfo().getGameID() + " has been created! Use this ID to answer using .ans command.");
                 System.out.println("Started unranked game with " + u.getIRCName() + ".");
             }
         }

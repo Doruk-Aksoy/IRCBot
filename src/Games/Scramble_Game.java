@@ -1,110 +1,52 @@
 package Games;
 
-import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import ConstantData.Game_Data;
 import ConstantData.Message_Data;
-import GameTask.*;
+import GameAward.ScrambleAward;
+import Games.GameData.GameState;
+import Games.GameData.Scramble_GameInfo;
 import Parsing.StringShuffle;
 import Mediator.BotMediator;
 import Mediator.GameMediator;
 import UserType.GameUser;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 public class Scramble_Game extends ChatGame {
-    private ArrayList<String> words;
-    private ArrayList<String> scrambled_words;
-    private boolean first_correct_answer;
-    
     public Scramble_Game(String c) {
-        super(c);
-        words = new ArrayList<>();
-        scrambled_words = new ArrayList<>();
-        first_correct_answer = false;
-    }
-    
-    @Override public String getName() {
-        return "Scramble";
-    }
-    
-    @Override public int getAnswerCount() {
-        return Game_Data.scramble_answer_count;
-    }
-    
-    @Override public boolean checkAnswer(String[] answer) {
-        return answer.length == 1 && answer[0].equals(words.get(0));
-    }
-    
-    @Override public void awardUser(GameUser U) {
-        long pts = Game_Data.scramble_point;
-        if(!first_correct_answer) {
-            U.addScore(pts);
-            first_correct_answer = true;
-            BotMediator.sendMessage(source, U.getIRCName() + " is the first player to answer correctly and claims " + pts + " points!");
-            BotMediator.sendMessage(U.getIRCName(), "You have answered correctly and received " + pts + " points!");
-        }
-        else {
-            long delay = pending_future.getDelay(TimeUnit.SECONDS);
-            pts *= delay;
-            pts /= (Game_Data.scramble_time_per_question);
-            U.addScore(pts);
-            BotMediator.sendMessage(source, U.getIRCName() + " has answered correctly after " + Game_Data.scramble_time_per_question + " seconds and receives " + pts + " points!");
-            BotMediator.sendMessage(U.getIRCName(), "You have answered correctly after " + Game_Data.scramble_time_per_question + " seconds and received " + pts + " points!");
-        }
-        U.setAnswerCount(Game_Data.CORRECTLY_ANSWERED);
-        answers_received++;
-        if(answers_received == um.getUserCount())
-            abortCurrentTask();
-        
+        super();
+        g_info = new Scramble_GameInfo(getInstanceCount(), c);
+        awarder = new ScrambleAward();
     }
     
     private void accept_players() {
         // send accept message if ranked
         if(isRanked()) {
-            BotMediator.sendMessage(source, Message_Data.player_join_begin_scramble);
-            try {
-                synchronized(pending_future) {
-                    pending_future.get();
-                }
-            } catch (Exception ex) {
-                System.out.println(ex + " happened!");
-            }
+            BotMediator.sendMessage(g_info.getSource(), Message_Data.player_join_begin_scramble);
+            g_delay.beginDelay();
+            BotMediator.sendMessage(g_info.getSource(), "The " + g_info.getName() + " game is ready to begin!");
+            g_state.setState(GameState.State.STAT_ONGOING);
         }
-        else if(pending_future != null) {
-            pending_future.cancel(true);
+        else if(g_delay.onDelay()) {
+            g_delay.cancelDelay();
         }
     }
     
     // will show answer after 10 seconds
     private void show_answer() {
-        pending_task = new GameTask_ShowAnswer(source, this);
-        pending_future = GameMediator.scheduleTask(pending_task, Game_Data.scramble_time_per_question, TimeUnit.SECONDS);
-        try {
-            synchronized(pending_future) {
-                pending_future.get();
-            }
-        } catch (Exception ex) {
-            System.out.println(ex + " happened!");
-        }
-        BotMediator.sendMessage(source, "The answer was " + words.get(0));
-        words.remove(0);
+        g_delay.makeDelay(Game_Data.scramble_time_per_question, TimeUnit.SECONDS);
+        g_delay.beginDelay();
+        g_state.setState(GameState.State.STAT_ONGOING);
+        BotMediator.sendMessage(g_info.getSource(), "The answer was " + g_info.getWordList().get(0));
+        g_info.getWordList().remove(0);
     }
     
     private void countdown() {
-        timer = Game_Data.scramble_time_between_rounds;
-        game_state = ChatGame.State.STAT_ONGOING;
-        pending_task = new GameTask_Dummy(source, this);
-        pending_future = GameMediator.scheduleTask(pending_task, timer, TimeUnit.SECONDS);
-        BotMediator.sendMessage(source, "The next round will begin in " + timer + " seconds!");
-        try {
-            synchronized(pending_future) {
-                pending_future.get();
-            }
-        } catch (Exception ex) {
-            System.out.println(ex + " happened!");
-        }
+        g_state.setState(GameState.State.STAT_ONGOING);
+        g_delay.makeDelay(Game_Data.scramble_time_between_rounds, TimeUnit.SECONDS);
+        BotMediator.sendMessage(g_info.getSource(), "The next round will begin in " + Game_Data.scramble_time_between_rounds + " seconds!");
+        g_delay.beginDelay();
     }
     
     private void buildWords() {
@@ -115,39 +57,40 @@ public class Scramble_Game extends ChatGame {
                 // get a random int using rng local to this thread
                 // 0 inclusive, size exclusive
                 toAdd = Game_Data.scramble_words.get(ThreadLocalRandom.current().nextInt(0, Game_Data.scramble_words.size()));
-            } while(words.contains(toAdd));
-            words.add(toAdd);
-            scrambled_words.add(new StringShuffle().parseSingle(toAdd));
+            } while(g_info.getWordList().contains(toAdd));
+            g_info.getWordList().add(toAdd);
+            g_info.getScrambledWordList().add(new StringShuffle().parseSingle(toAdd));
         }
     }
     
     @Override public void initialize() {
         // pick the list of words
         buildWords();
-        // create timer here
-        if(pending_future == null) {
-            pending_task = new GameTask_AcceptPlayers(source, this);
-            pending_future = GameMediator.scheduleTask(pending_task, Game_Data.TIME_wait_before_gamestart, TimeUnit.SECONDS);
-        }
+        if(!g_delay.onDelay())
+            g_delay.makeDelay(Game_Data.TIME_wait_before_gamestart, TimeUnit.SECONDS);
         accept_players();
     }
     
     @Override public void play() {
-        for(String w : scrambled_words) {
+        for(String w : g_info.getScrambledWordList()) {
             // initiate round
-            answers_received = 0;
-            first_correct_answer = false;
-            game_state = State.STAT_WANTANSWER;
+            g_info.resetAnswers();
+            g_info.setFirstCorrectAnswer(false);
+            g_state.setState(GameState.State.STAT_WANTANSWER);
             GameMediator.initAnswerCounts(this);
-            BotMediator.sendMessage(source, Message_Data.scramble_question_format + w + ". You have " + Game_Data.scramble_time_per_question + " seconds.");
+            BotMediator.sendMessage(g_info.getSource(), Message_Data.scramble_question_format + w + ". You have " + Game_Data.scramble_time_per_question + " seconds.");
             show_answer();
-            if(!words.isEmpty())
+            if(!g_info.getWordList().isEmpty())
                 countdown();
         }
     }
     
     @Override public void finish() {
-        BotMediator.sendMessage(source, "Game Finished!");
-        game_state = State.STAT_DONE;
+        BotMediator.sendMessage(g_info.getSource(), "Game Finished!");
+        g_state.setState(GameState.State.STAT_DONE);
+        if(isRanked())
+            save_stats();
+        announce_winner(find_winner());
+        GameMediator.terminate(this);
     }
 }

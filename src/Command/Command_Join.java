@@ -2,6 +2,7 @@ package Command;
 
 import ConstantData.*;
 import Games.ChatGame;
+import Games.GameData.GameState;
 import Mediator.*;
 import Message.Message;
 import Parsing.Parser;
@@ -50,11 +51,11 @@ public class Command_Join implements Command {
             ChatGame G = GameMediator.gameExists(text[1]);
             if(G != null) {
                 // check if game is not full and in countdown state, allow the player to join it if so
-                if(GameMediator.isFull(G) == false && G.getGameState() == ChatGame.State.STAT_COUNTDOWN) {
+                if(GameMediator.isFull(G) == false && G.getGameState().getState() == GameState.State.STAT_COUNTDOWN) {
                     // only allow a user to play one game at a time
-                    u.setGameStatus(G.getID());
+                    u.setGameStatus(G.getGameInfo().getGameID());
                     GameMediator.addUser(G, u);
-                    BotMediator.sendMessage(msg, u.getIRCName() + " has joined the " + G.getName() + " game!");
+                    BotMediator.sendMessage(msg, u.getIRCName() + " has joined the " + G.getGameInfo().getName() + " game!");
                     // if we're full, don't wait
                     if(GameMediator.getUserCount(G) == Game_Data.GAME_max_players)
                         G.abortCurrentTask();

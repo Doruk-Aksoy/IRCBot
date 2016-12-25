@@ -36,7 +36,7 @@ public class IRCBot_GameManager {
             return null;
         }
         for (HashMap.Entry<ChatGame, Future<String>> elem : active_games.entrySet()) {
-            if(elem.getKey().getID() == game_id) {
+            if(elem.getKey().getGameInfo().getGameID() == game_id) {
                 return elem.getKey();
             }
         }
@@ -54,17 +54,24 @@ public class IRCBot_GameManager {
             return null;
         }
         for (HashMap.Entry<ChatGame, Future<String>> elem : active_games.entrySet()) {
-            if(elem.getKey().getID() == game_id) {
+            if(elem.getKey().getGameInfo().getGameID() == game_id) {
                 return elem;
             }
         }
         return null;
     }
     
-    public void terminate(ChatGame G, Future<String> F) {
-        F.cancel(true);
+    // when games are finished, they will signal they are done to gamemediator and it will delete them from this array
+    public void terminate(ChatGame G) {
+        Future<String> F = null;
+        // find the future associated with this game
+        for (HashMap.Entry<ChatGame, Future<String>> elem : active_games.entrySet()) {
+            if(elem.getKey().getGameInfo().getGameID() == G.getGameInfo().getGameID()) {
+                F = elem.getValue();
+            }
+        }
+        if(F != null)
+            F.cancel(true);
         active_games.remove(G);
     }
-    
-    // when games are finished, they will signal they are done to gamemediator and it will delete them from this array
 }

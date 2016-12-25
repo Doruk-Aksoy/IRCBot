@@ -5,6 +5,7 @@ import java.util.Arrays;
 import ConstantData.Game_Data;
 import ConstantData.Message_Data;
 import Games.ChatGame;
+import Games.GameData.GameState;
 import Mediator.BotMediator;
 import Mediator.GameMediator;
 import Message.Message;
@@ -49,7 +50,7 @@ public class Command_Answer implements Command {
                         return;
                     }
                     // only accept user answers if the game is accepting answers
-                    if(G.getGameState() == ChatGame.State.STAT_WANTANSWER) {
+                    if(G.getGameState().getState() == GameState.State.STAT_WANTANSWER) {
                         GameMediator.acceptAnswer(G, u, Arrays.copyOfRange(text, 2, text.length));
                     }
                     else

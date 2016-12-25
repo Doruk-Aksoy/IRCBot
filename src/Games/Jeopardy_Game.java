@@ -5,19 +5,7 @@ import UserType.GameUser;
 
 public class Jeopardy_Game extends ChatGame {
     public Jeopardy_Game(String c) {
-        super(c);
-    }
-
-    @Override public String getName() {
-        return "Jeopardy";
-    } 
-    
-    @Override public int getAnswerCount() {
-        return Game_Data.scramble_answer_count;
-    }
-    
-    @Override public boolean checkAnswer(String[] answer) {
-        return true;
+        super();
     }
     
     @Override public void awardUser(GameUser U) {

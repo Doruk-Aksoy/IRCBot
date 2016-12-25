@@ -5,13 +5,14 @@ public abstract class GameUser {
         USER_NORMAL, USER_ADMIN
     }
     
-    // id is unique
+    // id is unique and given in database
     protected long ID;
     protected long score;
     protected User_Type type;
     protected UserCredentials uc;
     protected long game_id;
     protected int answer_count;
+    protected boolean has_won;
     
     public GameUser() { }
     
@@ -71,5 +72,19 @@ public abstract class GameUser {
     public void deduceAnswerCount() {
         if(answer_count > 0)
             answer_count--;
+    }
+    
+    public boolean hasWon() {
+        return has_won;
+    }
+    
+    public void setWinner(boolean w) {
+        has_won = w;
+    }
+    
+    public void resetStats() {
+        score = 0;
+        has_won = false;
+        answer_count = 0;
     }
 }
