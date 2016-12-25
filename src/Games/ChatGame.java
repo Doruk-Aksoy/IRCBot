@@ -117,4 +117,10 @@ public abstract class ChatGame extends Countable {
             System.out.println(e + " happened!");
         }
     }
+    
+    public void disassociate_users() {
+        ArrayList<GameUser> users = g_info.getUserManager().getUserList();
+        for(GameUser u : users)
+            u.setGameStatus(-1);
+    }
 }

@@ -65,7 +65,11 @@ public class GameMediator {
         else {
             U.deduceAnswerCount();
             // do attempt for 1.
-            BotMediator.sendMessage(G.getGameInfo().getSource(), "Wrong answer! You have " + U.getAnswerCount() + " attempts left!");
+            int ansleft = U.getAnswerCount();
+            if(ansleft > 0) // make sure the reply goes to the user in a PM, not to the channel
+                BotMediator.sendMessage(U.getIRCName(), "Wrong answer! You have " + U.getAnswerCount() + " attempts left!");
+            else
+                BotMediator.sendMessage(U.getIRCName(), "Wrong answer! Last chance!");
         }
     }
     

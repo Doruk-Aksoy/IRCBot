@@ -10,6 +10,8 @@ public abstract class GameInfo {
     protected long answers_received;
     protected static long game_id;
     protected boolean first_correct_answer;
+    protected int current_round;
+    protected int total_rounds;
     
     public GameInfo(long id, String c) {
         um = new IRCBot_UserManager();
@@ -17,6 +19,7 @@ public abstract class GameInfo {
         answers_received = 0;
         game_id = id;
         first_correct_answer = false;
+        current_round = 1;
     }
     
     public IRCBot_UserManager getUserManager() {
@@ -49,6 +52,18 @@ public abstract class GameInfo {
     
     public void resetAnswers() {
         answers_received = 0;
+    }
+    
+    public int getCurrentRound() {
+        return current_round;
+    }
+    
+    public void setNextRound() {
+        current_round++;
+    }
+    
+    public int getTotalRounds() {
+        return total_rounds;
     }
     
     public abstract String getName();

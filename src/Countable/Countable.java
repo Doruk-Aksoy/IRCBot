@@ -3,9 +3,7 @@ package Countable;
 public abstract class Countable {
    private static long instanceCount = 1;
    
-   public Countable() {
-      instanceCount++;
-   }
+   public Countable() { }
    
    public long getInstanceCount() {
       return instanceCount;

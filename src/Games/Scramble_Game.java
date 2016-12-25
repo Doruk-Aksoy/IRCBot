@@ -1,6 +1,5 @@
 package Games;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import ConstantData.Game_Data;
@@ -8,14 +7,14 @@ import ConstantData.Message_Data;
 import GameAward.ScrambleAward;
 import Games.GameData.GameState;
 import Games.GameData.Scramble_GameInfo;
-import Parsing.StringShuffle;
 import Mediator.BotMediator;
 import Mediator.GameMediator;
-import UserType.GameUser;
 
 public class Scramble_Game extends ChatGame {
     public Scramble_Game(String c) {
         super();
+        // increments the instance counter for a chat game
+        increment();
         g_info = new Scramble_GameInfo(getInstanceCount(), c);
         awarder = new ScrambleAward();
     }
@@ -43,29 +42,18 @@ public class Scramble_Game extends ChatGame {
     }
     
     private void countdown() {
+        g_info.setNextRound();
         g_state.setState(GameState.State.STAT_ONGOING);
         g_delay.makeDelay(Game_Data.scramble_time_between_rounds, TimeUnit.SECONDS);
-        BotMediator.sendMessage(g_info.getSource(), "The next round will begin in " + Game_Data.scramble_time_between_rounds + " seconds!");
+        if(g_info.getCurrentRound() != g_info.getTotalRounds())
+            BotMediator.sendMessage(g_info.getSource(), "Round " + g_info.getCurrentRound() + " will begin in " + Game_Data.scramble_time_between_rounds + " seconds!");
+        else
+            BotMediator.sendMessage(g_info.getSource(), "The final round will begin in " + Game_Data.scramble_time_between_rounds + " seconds!");
         g_delay.beginDelay();
-    }
-    
-    private void buildWords() {
-        for(int i = 0; i < Game_Data.scramble_rounds; ++i) {
-            String toAdd;
-            // add words until we have something that doesn't have this
-            do {
-                // get a random int using rng local to this thread
-                // 0 inclusive, size exclusive
-                toAdd = Game_Data.scramble_words.get(ThreadLocalRandom.current().nextInt(0, Game_Data.scramble_words.size()));
-            } while(g_info.getWordList().contains(toAdd));
-            g_info.getWordList().add(toAdd);
-            g_info.getScrambledWordList().add(new StringShuffle().parseSingle(toAdd));
-        }
     }
     
     @Override public void initialize() {
         // pick the list of words
-        buildWords();
         if(!g_delay.onDelay())
             g_delay.makeDelay(Game_Data.TIME_wait_before_gamestart, TimeUnit.SECONDS);
         accept_players();
@@ -91,6 +79,7 @@ public class Scramble_Game extends ChatGame {
         if(isRanked())
             save_stats();
         announce_winner(find_winner());
+        disassociate_users();
         GameMediator.terminate(this);
     }
 }

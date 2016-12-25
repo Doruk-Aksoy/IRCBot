@@ -42,6 +42,7 @@ public class Query_Handler {
     
     public void updateStats(Connection connection, long ID, long score, boolean has_won) throws SQLException {
         rs = query(connection, "SELECT score, highest_score, games_won, games_played FROM Users WHERE ID='" + ID +"'");
+        rs.next(); // this user has to exist
         long sc = rs.getInt("score") + score;
         long hc = rs.getInt("highest_score");
         long gw = rs.getInt("games_won");
