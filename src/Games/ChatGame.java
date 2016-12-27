@@ -1,5 +1,6 @@
 package Games;
 
+import ConstantData.Message_Data;
 import Countable.Countable;
 import Database.Database_Connection;
 import Database.Query_Handler;
@@ -8,6 +9,7 @@ import Games.GameData.GameInfo;
 import Games.GameData.GameDelay;
 import Games.GameData.GameState;
 import Mediator.BotMediator;
+import Mediator.GameMediator;
 import UserType.GameUser;
 
 // includes an object of this type, because they need to manage their own users actively playing in this
@@ -69,8 +71,14 @@ public abstract class ChatGame extends Countable {
     public String run() {
         try {
             initialize();
-            play();
-            finish();
+            // if ranked check passed
+            if(g_state.getState() != GameState.State.STAT_CANCEL) {
+                play();
+                finish();
+            }
+            else {
+                cancel();
+            }
         }
         catch(Exception e) {
             System.out.println(e + " happened!!!!");
@@ -121,6 +129,16 @@ public abstract class ChatGame extends Countable {
     public void disassociate_users() {
         ArrayList<GameUser> users = g_info.getUserManager().getUserList();
         for(GameUser u : users)
-            u.setGameStatus(-1);
+            u.setGameStatus(0);
+    }
+    
+    public boolean rankedSatisfied() {
+        return g_info.getUserManager().getUserCount() > 1;
+    }
+    
+    public void cancel() {
+        BotMediator.sendMessage(g_info.getSource(), Message_Data.game_notenough_player);
+        disassociate_users();
+        GameMediator.terminate(this);
     }
 }

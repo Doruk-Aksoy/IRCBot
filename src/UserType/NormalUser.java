@@ -5,7 +5,7 @@ public class NormalUser extends GameUser {
         score = 0;
         type = User_Type.USER_NORMAL;
         uc = null;
-        ID = -1;
+        ID = 0;
         game_id = 0;
         has_won = false;
     }

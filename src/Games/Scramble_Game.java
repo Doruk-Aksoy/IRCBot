@@ -24,12 +24,17 @@ public class Scramble_Game extends ChatGame {
         if(isRanked()) {
             BotMediator.sendMessage(g_info.getSource(), Message_Data.player_join_begin_scramble);
             g_delay.beginDelay();
-            BotMediator.sendMessage(g_info.getSource(), "The " + g_info.getName() + " game is ready to begin!");
-            g_state.setState(GameState.State.STAT_ONGOING);
+            // if we are ranked we must check an additional case where there has to be at least 2 players
+            if(!rankedSatisfied()) {
+                g_state.setState(GameState.State.STAT_CANCEL);
+                return;
+            }
         }
         else if(g_delay.onDelay()) {
             g_delay.cancelDelay();
         }
+        BotMediator.sendMessage(g_info.getSource(), "The " + g_info.getName() + " game is ready to begin!");
+        g_state.setState(GameState.State.STAT_ONGOING);
     }
     
     // will show answer after 10 seconds
@@ -37,7 +42,7 @@ public class Scramble_Game extends ChatGame {
         g_delay.makeDelay(Game_Data.scramble_time_per_question, TimeUnit.SECONDS);
         g_delay.beginDelay();
         g_state.setState(GameState.State.STAT_ONGOING);
-        BotMediator.sendMessage(g_info.getSource(), "The answer was " + g_info.getWordList().get(0));
+        BotMediator.sendMessage(g_info.getSource(), "The answer was " + g_info.getWordList().get(0) + ".");
         g_info.getWordList().remove(0);
     }
     

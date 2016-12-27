@@ -25,6 +25,7 @@ public class Message_Data {
     public static final String bad_format = "Invalid format. Please use the .help command for more info.";
     public static final String requireslogin = "You need to be logged in to use this command. See '.help login' for more info.";
     public static final String game_nojoin = "The game is either full or no longer accepting players.";
+    public static final String game_noans = "The game is currently not accepting any answers.";
     public static final String ingame_already = "You are already in a game!";
     public static final String ingame_cantmakegame = "You can't make another game while associated with another!";
     public static final String game_doesnotexist = "The game with the specified ID either doesn't exist or is not accepting players.";
@@ -32,6 +33,7 @@ public class Message_Data {
     public static final String not_in_this_game = "You haven't joined the specified game!";
     public static final String already_correctly_answered = "You have already correctly answered this question!";
     public static final String no_more_answers = "You have used all your answer rights! You can't answer this question anymore!";
+    public static final String game_notenough_player = "The game is cancelled due to not having more than 1 player joined.";
     
     // Help Messages
     public static final String gen_help_message = "Hello user! This is the IRCBot made by IvanDobrovski. It can do many stuff! Valid commands: .help command_name, .join, .keyword, .login, .register, .stats";

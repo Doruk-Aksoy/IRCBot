@@ -2,7 +2,8 @@ package UserType;
 
 public abstract class GameUser {
     public enum User_Type {
-        USER_NORMAL, USER_ADMIN
+        USER_NORMAL, 
+        USER_ADMIN
     }
     
     // id is unique and given in database

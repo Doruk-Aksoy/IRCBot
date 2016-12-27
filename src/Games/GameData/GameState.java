@@ -7,7 +7,8 @@ public class GameState {
         STAT_WANTANSWER,
         STAT_FINISHED,
         STAT_DATABASE,
-        STAT_DONE
+        STAT_DONE,
+        STAT_CANCEL // if the game was not initialized properly (not enough players for example)
     }
     
     private boolean game_over;

@@ -54,7 +54,7 @@ public class Command_Answer implements Command {
                         GameMediator.acceptAnswer(G, u, Arrays.copyOfRange(text, 2, text.length));
                     }
                     else
-                        BotMediator.sendMessage(msg, Message_Data.game_nojoin);
+                        BotMediator.sendMessage(msg, Message_Data.game_noans);
                 }
                 else
                     BotMediator.sendMessage(msg, Message_Data.not_in_this_game);

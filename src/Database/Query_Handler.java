@@ -41,7 +41,7 @@ public class Query_Handler {
     }
     
     public void updateStats(Connection connection, long ID, long score, boolean has_won) throws SQLException {
-        rs = query(connection, "SELECT score, highest_score, games_won, games_played FROM Users WHERE ID='" + ID +"'");
+        rs = query(connection, "SELECT score, highest_score, games_won, games_played FROM Users WHERE ID=" + ID);
         rs.next(); // this user has to exist
         long sc = rs.getInt("score") + score;
         long hc = rs.getInt("highest_score");
@@ -50,8 +50,8 @@ public class Query_Handler {
             gw++;
         long gp = rs.getInt("games_played") + 1;
         if(hc < score) // update highest score field as well
-            rs = query(connection, "UPDATE Users SET score=" + sc + ", highest_score=" + score + ", games_played=" + gp + ", games_won=" + gw + " WHERE ID=" + ID + ";");
+            rs = query(connection, "UPDATE Users SET score=" + sc + ", highest_score=" + score + ", games_played=" + gp + ", games_won=" + gw + " WHERE ID=" + ID);
         else
-            rs = query(connection, "UPDATE Users SET score=" + sc + ", games_played=" + gp + ", games_won=" + gw + " WHERE ID=" + ID + ";");
+            rs = query(connection, "UPDATE Users SET score=" + sc + ", games_played=" + gp + ", games_won=" + gw + " WHERE ID=" + ID);
     }
 }
