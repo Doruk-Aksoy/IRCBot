@@ -1,23 +1,28 @@
 package GUI;
 
 // Contains every component of the GUI
-
-import java.awt.*;
+import java.awt.Container;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class GUI_Components {
     // allow access within package
-    protected Panel button_panel;
-    protected Button run_button;
+    protected JPanel button_panel;
+    protected JButton run_button;
     
-    protected Panel input_panel;
-    protected Label channelInputL;
-    protected TextField channelInputTF;
+    protected JLabel serverInputL;
+    public static JTextField serverInputTF;
     
-    protected ArrayList<Panel> panels;
+    protected JLabel channelInputL;
+    public static JTextField channelInputTF;
     
-    public GUI_Components() {
+    protected JLabel botnameInputL;
+    public static JTextField botnameInputTF;
+    
+    public static ArrayList<GUI_Object> capables;
+    
+    public GUI_Components(Container C) {
         GUI_Builder B = new GUI_Builder();
-        B.build(this);
+        B.build(this, C);
     }
 }

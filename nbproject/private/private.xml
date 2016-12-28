@@ -8,6 +8,7 @@
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Games/GameData/GameDelay.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GameAward/ScrambleAward.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/datamanager/IRCBot_UserManager.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GUI/Event/GUI_LaunchButtonHandler.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Join.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/HelpCommands/Command_Help.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/DataTypes/Pair.java</file>
@@ -46,6 +47,7 @@
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Login.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/UserType/GameUser.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/Features/IRCBot_StatEvaluator.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GUI/GUI_Object.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ConstantData/Feature_CD.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/Features/Keyword/Keyword.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/Features/IRCBot_Feature.java</file>
@@ -58,6 +60,7 @@
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Parsing/MD5Hasher.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Games/Factory/Game_Factory.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Invalid.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GUI/Listener/GUI_Listener.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Create.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_Answer.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/datamanager/IRCBot_DataManager.java</file>
@@ -69,9 +72,11 @@
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/TaskScheduler/TaskScheduler.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/Command_List_Builder.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/NickChange_Handler.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GUI/Event/GUI_EventHandler.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ConstantData/Game_Data.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/ircbot/IRCBot.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/UserType/NormalUser.java</file>
+            <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GUI/Event/GUI_WindowClose.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/GameTask/GameTask.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Command/HelpCommands/Command_Help_Register.java</file>
             <file>file:/C:/Users/USER/Documents/Programming/JAVA/Bot/IRCBot/src/Handlers/Quit_Handler.java</file>
