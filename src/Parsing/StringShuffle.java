@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class StringShuffle implements Parser {
-    @Override public String[] parse(String s) {
+    @Override public String[] parse(String s, String regex) {
         return null;
     }
     

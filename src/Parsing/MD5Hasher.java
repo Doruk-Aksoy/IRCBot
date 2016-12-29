@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class MD5Hasher implements Parser {
     public MD5Hasher() { }
     
-    @Override public String[] parse(String s) {
+    @Override public String[] parse(String s, String regex) {
         return null;
     }
     

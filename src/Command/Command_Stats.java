@@ -20,7 +20,7 @@ public class Command_Stats implements Command {
     
     @Override public Command_Validity validate(Message msg) {
         Parser p = new StringSeperator();
-        text = p.parse(msg.getText());
+        text = p.parse(msg.getText(), Parser.spaces);
         if(!verifyFormat(text))
             return Command_Validity.CMD_BADFORMAT;
         return Command_Validity.CMD_VALID;

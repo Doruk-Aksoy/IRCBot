@@ -1,8 +1,5 @@
 package Command;
 
-import java.util.HashMap;
-import java.util.concurrent.Future;
-
 import Games.ChatGame;
 import Mediator.BotMediator;
 import Mediator.GameMediator;
@@ -22,7 +19,7 @@ public class Command_StopGame implements Command {
         if(msg.getType() != Message.Message_Type.MSG_GAMEPM)
             return Command_Validity.CMD_POSSIBLYBAD;
         Parser p = new StringSeperator();
-        text = p.parse(msg.getText());
+        text = p.parse(msg.getText(), Parser.spaces);
         if(!verifyFormat(text))
             return Command.Command_Validity.CMD_BADFORMAT;
         if(!BotMediator.isLoggedIn(msg.getSender()))

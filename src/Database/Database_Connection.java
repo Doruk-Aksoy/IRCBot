@@ -1,46 +1,23 @@
 package Database;
 
-import java.io.IOException;
 import java.sql.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.util.ArrayList;
 
-public class Database_Connection {
+import Trigger.*;
+
+public class Database_Connection implements Notifier {
     private static Database_Connection instance = null;
-    
-    private final String DB_USER = "SYSTEM";
-    
-    private String DB_URL = null;
-    private String DB_LOGIN = null;
-    private String DB_PASSWORD = null;
-    
     private Connection connection = null;
+    private ArrayList<Triggerable> triggers;
     
     private Database_Connection() {
+        triggers = new ArrayList<>();
         try {
             // register once only
             Class.forName("oracle.jdbc.driver.OracleDriver");
         }
         catch(ClassNotFoundException ex) {
             System.out.println("Error: unable to load driver class!");
-            System.exit(1);
-        }
-        // load database credentials from file
-        List<String> readLines = null;
-        try {
-            readLines = Files.readAllLines(Paths.get("/Users/User/Documents/Programming/Java/Bot/database.txt"));
-        } catch(IOException e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-        for(String line : readLines) {
-            if(DB_URL == null)
-                DB_URL = line;
-            else if(DB_LOGIN == null)
-                DB_LOGIN = line;
-            else if(DB_PASSWORD == null)
-                DB_PASSWORD = line;
         }
     }
     
@@ -50,10 +27,14 @@ public class Database_Connection {
         return instance;
     }
     
-    public Connection connect() throws SQLException {
-        System.out.println("Trying to connect...");
-        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        System.out.println("Connected!");
+    public Connection connect() {
+        try {
+            connection = DriverManager.getConnection(Database_Info.DB_URL, Database_Info.DB_LOGIN, Database_Info.DB_PASSWORD);
+        } catch(SQLException e) {
+            System.out.println(e.toString() + " happened!");
+            connection = null;
+        }
+        notifyTriggers();
         return connection;
     }
     
@@ -63,5 +44,14 @@ public class Database_Connection {
     
     public Connection getConnection() {
         return connection;
+    }
+    
+    @Override public void addTrigger(Triggerable T) {
+        triggers.add(T);
+    }
+    
+    @Override public void notifyTriggers() {
+        for(Triggerable T : triggers)
+            T.trigger(this);
     }
 }

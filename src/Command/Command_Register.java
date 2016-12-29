@@ -22,7 +22,7 @@ public class Command_Register implements Command {
         if(msg.getType() != Message.Message_Type.MSG_PM)
             return Command_Validity.CMD_POSSIBLYBAD;
         Parser p = new StringSeperator();
-        text = p.parse(msg.getText());
+        text = p.parse(msg.getText(), Parser.spaces);
         if(!verifyFormat(text))
             return Command_Validity.CMD_BADFORMAT;
         return Command_Validity.CMD_VALID;

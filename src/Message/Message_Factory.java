@@ -20,7 +20,7 @@ public class Message_Factory {
     public Message build(Message.Message_Type default_type, String... A) {
         String message = A[A.length - 1]; // guaranteed to be the last string
         Parser P = new StringSeperator();
-        String begin = P.parse(message)[0];
+        String begin = P.parse(message, Parser.spaces)[0];
         Command_List CL = Command_List.getInstance();
         if(CL.getCommand(begin) != null) {
             if(isGameMessage(begin)) {

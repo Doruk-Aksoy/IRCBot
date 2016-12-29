@@ -13,7 +13,7 @@ public class Command_Invalid implements Command {
     
     @Override public void operate(Message msg) {
         Parser p = new StringSeperator();
-        String[] text = p.parse(msg.getText());
+        String[] text = p.parse(msg.getText(), Parser.spaces);
         String toSend = Message_Data.invalid_command;
         BotMediator.sendMessage(msg, toSend);
     }

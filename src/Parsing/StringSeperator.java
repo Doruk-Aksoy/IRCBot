@@ -7,7 +7,7 @@ public class StringSeperator implements Parser {
         return null;
     }
     
-    @Override public String[] parse(String s) {
-        return s.split("\\s+");
+    @Override public String[] parse(String s, String regex) {
+        return s.split(regex);
     }
 }

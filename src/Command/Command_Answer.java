@@ -23,7 +23,7 @@ public class Command_Answer implements Command {
     // this command requires you to be logged in in order to use
     @Override public Command.Command_Validity validate(Message msg) {
         Parser p = new StringSeperator();
-        text = p.parse(msg.getText());
+        text = p.parse(msg.getText(), Parser.spaces);
         if(!verifyFormat(text))
             return Command.Command_Validity.CMD_BADFORMAT;
         if(!BotMediator.isLoggedIn(msg.getSender()))

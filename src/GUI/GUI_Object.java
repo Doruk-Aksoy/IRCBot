@@ -4,15 +4,17 @@ import javax.swing.*;
 
 public class GUI_Object {
     public enum GUI_Object_Type {
-        GUIO_BUTTON
+        GUIO_LAUNCHBUTTON,
+        GUIO_DBFILEBUTTON,
+        GUIO_DISCONNECTBUTTON
     };
     
     private final Object obj;
     private final GUI_Object_Type type;
     
-    public GUI_Object(JButton B) {
-        obj = B;
-        type = GUI_Object_Type.GUIO_BUTTON;
+    public GUI_Object(Object o, GUI_Object_Type t) {
+        obj = o;
+        type = t;
     }
     
     public Object getObject() {
